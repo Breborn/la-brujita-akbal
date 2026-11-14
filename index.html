@@ -38,10 +38,10 @@
       </a>
 
       <nav class="nav" id="mainNav" aria-label="Navegación principal">
+        <a href="#lectura-tarot" class="nav__link">🃏 Lectura de Tarot Online</a>
         <a href="#catalogo" class="nav__link">Catálogo Místico</a>
         <a href="#intenciones" class="nav__link">Por Intención</a>
         <a href="#dato-bruja" class="nav__link">El Dato de la Bruja</a>
-        <a href="#oraculo" class="nav__link">Oráculo Akbal</a>
         <a href="#nosotras" class="nav__link">Verónica + Zyra</a>
       </nav>
 
@@ -78,12 +78,12 @@
           </p>
 
           <div class="hero__cta-group">
-            <a href="#catalogo" class="btn btn--gold">
-              <span>Explorar el Catálogo</span>
+            <a href="#lectura-tarot" class="btn btn--gold">
+              <span>🃏 Tirada de Tarot Online con Verónica</span>
               <span aria-hidden="true">✦</span>
             </a>
-            <a href="#dato-bruja" class="btn btn--outline">
-              <span>¿Conocías las Ombligueras?</span>
+            <a href="#catalogo" class="btn btn--outline">
+              <span>Explorar el Catálogo</span>
             </a>
           </div>
 
@@ -321,35 +321,144 @@
       </div>
     </section>
 
-    <!-- ORÁCULO INTERACTIVO: MENSAJE DE LA BRUJA AKBAL -->
-    <section class="oracle-section" id="oraculo">
+    <!-- SALA DE LECTURA DE TAROT EN LÍNEA CON VERÓNICA (INTERACTIVA + RESERVA DE SESIONES) -->
+    <section class="tarot-room-section" id="lectura-tarot">
       <div class="container">
-        <div class="oracle-box">
-          <div class="oracle-box__content">
-            <div class="ornate-badge">
-              <span class="eight-star">✴</span>
-              <span>INTERACTIVO • CONSEJO DE VERÓNICA + ZYRA</span>
-              <span class="eight-star">✴</span>
+        <div class="section-heading">
+          <div class="ornate-badge">
+            <span class="eight-star">✴</span>
+            <span>ORÁCULO EN LÍNEA &amp; CONSULTA PERSONAL CON VERÓNICA</span>
+            <span class="eight-star">✴</span>
+          </div>
+          <h2 class="section-heading__title">Lectura de Tarot en Línea con <span class="gold-gradient">Verónica</span></h2>
+          <p class="section-heading__subtitle">
+            Realiza tu tirada interactiva de <strong>3 Arcanos (Pasado • Presente • Futuro)</strong> ahora mismo en nuestra mesa ritual y envíale tus cartas a Verónica para profundizar en una sesión en vivo.
+          </p>
+        </div>
+
+        <div class="tarot-altar-box" id="oraculo">
+          <!-- Paso 1: Intención y Pregunta del Consultante -->
+          <div class="tarot-setup-grid">
+            <div class="tarot-field">
+              <label for="tarotQuerentName">1. Tu Nombre o Signo Zodiacal</label>
+              <input type="text" id="tarotQuerentName" placeholder="Ej: Valentina (Escorpio)" />
             </div>
-            <h2>Saca tu Carta y Amuleto del Día</h2>
-            <p>
-              Respira profundo, conecta con tu intención y descubre qué mensaje y herramienta mágica del altar de <strong>La Brujita Akbal</strong> vibra hoy contigo.
-            </p>
-            <button class="btn btn--gold" id="drawOracleBtn">
-              <span>✨ Revelar mi Mensaje de Hoy ✨</span>
-            </button>
+            <div class="tarot-field">
+              <label for="tarotSpreadTopic">2. Área de tu Consulta</label>
+              <select id="tarotSpreadTopic">
+                <option value="Energía General y Camino Espiritual">✨ Energía General y Camino Espiritual</option>
+                <option value="Amor, Vínculos y Pareja">💛 Amor, Vínculos y Pareja</option>
+                <option value="Trabajo, Abundancia y Proyectos">☀️ Trabajo, Abundancia y Proyectos</option>
+                <option value="Protección, Limpieza y Bloqueos">🛡️ Protección, Limpieza y Bloqueos</option>
+              </select>
+            </div>
+            <div class="tarot-field tarot-field--wide">
+              <label for="tarotQuerentQuestion">3. Escribe tu pregunta o intención para el Tarot (opcional)</label>
+              <input type="text" id="tarotQuerentQuestion" placeholder="Respira profundo y escribe aquello que deseas iluminar hoy..." />
+            </div>
           </div>
 
-          <div class="oracle-box__stage" id="oracleResultCard">
-            <div class="tarot-card-back" id="tarotCardInteractive">
-              <div class="tarot-card-back__inner">
-                <span class="tarot-card-back__moon">🌙</span>
-                <span class="tarot-card-back__title">La Brujita AKBAL</span>
-                <span class="tarot-card-back__sub">Haz clic para revelar tu energía</span>
-                <span class="tarot-card-back__stars">✴ ☽ ● ☾ ✴</span>
+          <!-- Controles de la Mesa Ritual -->
+          <div class="tarot-deck-controls">
+            <button class="btn btn--gold" id="shuffleDeckBtn">
+              <span>🔀 Barajar el Mazo Consagrado</span>
+            </button>
+            <button class="btn btn--outline" id="revealAllSpreadBtn">
+              <span>✨ Revelar Tirada Rápida de 3 Cartas</span>
+            </button>
+            <span class="tarot-status-pill" id="tarotStepStatus">🔮 Selecciona 3 cartas del abanico dorado (0 / 3 elegidas)</span>
+          </div>
+
+          <!-- Abanico Interactivo de Cartas Boca Abajo -->
+          <div class="tarot-fan-container" id="tarotFanContainer" aria-label="Abanico de cartas de tarot para elegir"></div>
+
+          <!-- Las 3 Posiciones de la Tirada (Pasado, Presente, Futuro) -->
+          <div class="tarot-spread-slots" id="tarotSpreadSlots">
+            <div class="spread-slot" data-slot="0">
+              <span class="spread-slot__label">I • EL ORIGEN / PASADO</span>
+              <div class="spread-slot__card" id="spreadSlot0">
+                <span class="slot-placeholder">Elige tu 1ª carta arriba</span>
+              </div>
+            </div>
+            <div class="spread-slot" data-slot="1">
+              <span class="spread-slot__label">II • ENERGÍA PRESENTE</span>
+              <div class="spread-slot__card" id="spreadSlot1">
+                <span class="slot-placeholder">Elige tu 2ª carta arriba</span>
+              </div>
+            </div>
+            <div class="spread-slot" data-slot="2">
+              <span class="spread-slot__label">III • DESTINO / CONSEJO</span>
+              <div class="spread-slot__card" id="spreadSlot2">
+                <span class="slot-placeholder">Elige tu 3ª carta arriba</span>
               </div>
             </div>
           </div>
+
+          <!-- Lectura Completa Canalizada + Botón para enviar tirada a Verónica -->
+          <div class="tarot-reading-synthesis" id="tarotReadingSynthesis" hidden>
+            <div class="synthesis-header">
+              <span class="eight-star">✴</span>
+              <h3>Interpretación de tu Tirada por La Brujita Akbal</h3>
+              <span class="eight-star">✴</span>
+            </div>
+            <div class="synthesis-body" id="tarotSynthesisBody"></div>
+            <div class="synthesis-actions">
+              <button class="btn btn--gold" id="sendReadingToVeronicaBtn">
+                <span>💬 Enviar mis 3 Cartas a Verónica para Lectura Profunda</span>
+              </button>
+              <button class="btn btn--outline" id="resetReadingBtn">
+                <span>🔄 Realizar Nueva Tirada</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modalidades de Sesión en Vivo con Verónica -->
+        <div class="live-sessions-header">
+          <span class="lunar-divider" aria-hidden="true">─── ☽ ◑ ● ◐ ☾ ───</span>
+          <h3>Agenda tu Sesión de Tarot en Vivo con Verónica</h3>
+          <p>Si deseas una lectura personalizada por videollamada o audios detallados con fotos de tu tirada en el altar:</p>
+        </div>
+
+        <div class="sessions-grid">
+          <article class="session-card">
+            <span class="session-card__tag">⚡ RESPUESTA EN EL DÍA</span>
+            <h4>Lectura Express (3 Preguntas)</h4>
+            <p class="session-card__format">📱 Por WhatsApp (Foto de tu tirada en el altar + Audios explicativos de Verónica)</p>
+            <p class="session-card__desc">Ideal para resolver dudas concretas sobre una decisión, vínculo o situación puntual con consejo práctico.</p>
+            <div class="session-card__footer">
+              <strong class="session-card__price">$12.000</strong>
+              <button class="btn btn--gold" data-book-session="Lectura Express de 3 Preguntas por WhatsApp ($12.000)">
+                Agendar con Verónica →
+              </button>
+            </div>
+          </article>
+
+          <article class="session-card session-card--featured">
+            <span class="session-card__tag">★ LA MÁS SOLICITADA</span>
+            <h4>Sesión Tarot Terapéutico &amp; Evolutivo</h4>
+            <p class="session-card__format">💻 Videollamada en Vivo de 45 min con Verónica (y Zyra 🐾)</p>
+            <p class="session-card__desc">Lectura completa de apertura general + preguntas libres, análisis energético de bloqueos y recomendación de ritual o cristal protector.</p>
+            <div class="session-card__footer">
+              <strong class="session-card__price">$25.000</strong>
+              <button class="btn btn--gold" data-book-session="Sesión de Tarot Terapéutico en Vivo 45 min ($25.000)">
+                Agendar con Verónica →
+              </button>
+            </div>
+          </article>
+
+          <article class="session-card">
+            <span class="session-card__tag">🌕 ESPECIAL COMPLETO</span>
+            <h4>Lectura Cruz Celta + Limpieza con Péndulo</h4>
+            <p class="session-card__format">💻 Videollamada en Vivo de 60 min + Guía PDF de Ritual</p>
+            <p class="session-card__desc">Tirada profunda de 10 cartas, chequeo energético de centros vitales con péndulo de obsidiana y decreto de apertura de caminos.</p>
+            <div class="session-card__footer">
+              <strong class="session-card__price">$34.000</strong>
+              <button class="btn btn--gold" data-book-session="Lectura Cruz Celta + Limpieza con Péndulo 60 min ($34.000)">
+                Agendar con Verónica →
+              </button>
+            </div>
+          </article>
         </div>
       </div>
     </section>
