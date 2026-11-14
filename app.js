@@ -529,9 +529,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target.id === 'productModal') closeProductModal();
   });
 
-  // Oráculo
-  document.getElementById('drawOracleBtn').addEventListener('click', drawOracleCard);
-  document.getElementById('tarotCardInteractive').addEventListener('click', drawOracleCard);
+  // Inicializar Sala de Lectura de Tarot en Línea con Verónica
+  initTarotReadingRoom();
 
   // Checkout por WhatsApp
   document.getElementById('checkoutWhatsappBtn').addEventListener('click', () => {
@@ -582,3 +581,316 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('mainNav').classList.toggle('open');
   });
 });
+
+
+// =========================================================================
+// SALA DE LECTURA DE TAROT EN LÍNEA CON VERÓNICA (MAZO DE ARCANOS MAYORES)
+// =========================================================================
+const MAJOR_ARCANA_DECK = [
+  {
+    roman: 'I',
+    name: 'El Mago',
+    symbol: '🪄',
+    keywords: 'Manifestación • Poder Personal • Inicios',
+    past: 'Has venido reuniendo todas las herramientas internas y la experiencia necesaria para dar un salto importante.',
+    present: 'Tienes en tus manos el poder de materializar lo que deseas. Confía en tus dones y actúa con determinación.',
+    future: 'Se abre un nuevo ciclo creativo muy fértil; tus intenciones bien enfocadas darán frutos concretos.',
+    productId: 'vel-02'
+  },
+  {
+    roman: 'II',
+    name: 'La Sacerdotisa de Akbal',
+    symbol: '🌙',
+    keywords: 'Intuición • Misterio • Sabiduría Interior',
+    past: 'Tu intuición ya te venía avisando a través de sueños y corazonadas lo que estaba ocurriendo bajo la superficie.',
+    present: 'Es momento de guardar silencio, observar sin prisa y escuchar la voz de tu alma antes de hablar.',
+    future: 'Un secreto o verdad importante se revelará a tu favor cuando conectes con tu calma interior.',
+    productId: 'tar-01'
+  },
+  {
+    roman: 'III',
+    name: 'La Emperatriz',
+    symbol: '👑',
+    keywords: 'Abundancia • Creatividad • Amor Propio',
+    past: 'Sembraste con amor y paciencia, cuidando tus vínculos y tu propia energía vital.',
+    present: 'Estás en una etapa de magnetismo, fertilidad de proyectos y merecimiento. Permítete recibir.',
+    future: 'Florecimiento económico y emocional; lo que cuides hoy crecerá con fuerza y belleza.',
+    productId: 'pla-02'
+  },
+  {
+    roman: 'VI',
+    name: 'Los Enamorados',
+    symbol: '💛',
+    keywords: 'Elección del Corazón • Armonía • Vínculos',
+    past: 'Una decisión importante o encuentro marcó el rumbo emocional en el que te encuentras hoy.',
+    present: 'El Tarot te pide elegir desde el amor auténtico y la coherencia con tus valores, no desde el miedo.',
+    future: 'Alianza sincera, reconciliación con tu propio deseo y claridad total en tus relaciones.',
+    productId: 'vel-02'
+  },
+  {
+    roman: 'IX',
+    name: 'El Ermitaño',
+    symbol: '🏮',
+    keywords: 'Introspección • Protección • Guía Interna',
+    past: 'Necesitaste tomar distancia del ruido externo para sanar y comprender tu verdadero propósito.',
+    present: 'Protege tu centro energético (tu plexo solar) y selecciona muy bien con quién compartes tu energía.',
+    future: 'Tu prudencia actual te llevará a una respuesta sabia y a una paz profunda e inquebrantable.',
+    productId: 'amb-01'
+  },
+  {
+    roman: 'X',
+    name: 'La Rueda de la Fortuna',
+    symbol: '☸️',
+    keywords: 'Destino • Movimiento • Cambio de Ciclo',
+    past: 'Atravesaste altibajos que te enseñaron a fluir y no aferrarte a lo que ya cumplió su ciclo.',
+    present: 'La energía se pone en movimiento rápido. Acepta las sincronías y oportunidades inesperadas.',
+    future: 'Un giro sumamente favorable destraba lo que parecía estancado y renueva tu suerte.',
+    productId: 'pla-01'
+  },
+  {
+    roman: 'XIV',
+    name: 'La Templanza',
+    symbol: '🏺',
+    keywords: 'Alquimia • Equilibrio • Sanación',
+    past: 'Tras días de intensidad emocional, tu espíritu buscó recuperar su centro y armonía.',
+    present: 'Evita los extremos. La paciencia y la limpieza energética están integrando tus emociones.',
+    future: 'Llega una etapa de alivio, acuerdos pacíficos y bienestar integral para tu mente y cuerpo.',
+    productId: 'cri-01'
+  },
+  {
+    roman: 'XVII',
+    name: 'La Estrella',
+    symbol: '✨',
+    keywords: 'Esperanza • Renovación • Guía Celestial',
+    past: 'Superaste una tormenta importante manteniendo viva tu fe y tu sensibilidad.',
+    present: 'Estás bajo una protección luminosa. Limpia tu aura y confía en que estás en el camino correcto.',
+    future: 'Tus sueños más nobles encuentran cauce; llega inspiración, alivio y bendiciones a tu hogar.',
+    productId: 'vel-01'
+  },
+  {
+    roman: 'XVIII',
+    name: 'La Luna',
+    symbol: '🐺',
+    keywords: 'Sueños • Inconsciente • Limpieza de Sombras',
+    past: 'Ciertas dudas, ilusiones o energías densas del entorno nublaron tu claridad recientemente.',
+    present: 'No temas mirar tus emociones profundas; usa obsidiana y plata para cortar confusiones y envidias.',
+    future: 'La niebla se disipa por completo y tu intuición sale fortalecida al amanecer.',
+    productId: 'amb-02'
+  },
+  {
+    roman: 'XIX',
+    name: 'El Sol',
+    symbol: '☀️',
+    keywords: 'Éxito • Claridad • Plenitud Vital',
+    past: 'Tu honestidad y esfuerzo constante prepararon el terreno para este momento de luz.',
+    present: 'Claridad absoluta, vitalidad y alegría. Todo sale a la luz de manera favorable para ti.',
+    future: 'Triunfo rotundo en tu consulta, calidez afectiva y prosperidad compartida.',
+    productId: 'vel-02'
+  }
+];
+
+let tarotSpreadState = {
+  shuffledDeck: [],
+  selectedCards: []
+};
+
+function initTarotReadingRoom() {
+  const fanContainer = document.getElementById('tarotFanContainer');
+  if (!fanContainer) return;
+
+  shuffleAndResetTarot();
+
+  document.getElementById('shuffleDeckBtn').addEventListener('click', () => {
+    shuffleAndResetTarot();
+    showToast('🔀 Verónica y Zyra han barajado las cartas en el altar');
+  });
+
+  document.getElementById('revealAllSpreadBtn').addEventListener('click', () => {
+    while (tarotSpreadState.selectedCards.length < 3) {
+      const remaining = tarotSpreadState.shuffledDeck.filter(
+        (c) => !tarotSpreadState.selectedCards.some((sel) => sel.roman === c.roman)
+      );
+      const nextCard = remaining[Math.floor(Math.random() * remaining.length)];
+      tarotSpreadState.selectedCards.push(nextCard);
+    }
+    renderTarotFan();
+    renderTarotSpreadSlots();
+    renderTarotSynthesis();
+  });
+
+  document.getElementById('resetReadingBtn').addEventListener('click', () => {
+    shuffleAndResetTarot();
+  });
+
+  document.getElementById('sendReadingToVeronicaBtn').addEventListener('click', () => {
+    sendTarotReadingWhatsApp();
+  });
+
+  // Botones para agendar sesiones en vivo con Verónica
+  document.querySelectorAll('[data-book-session]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const sessionName = btn.getAttribute('data-book-session');
+      const querent = document.getElementById('tarotQuerentName').value.trim() || 'Consultante de La Brujita Akbal';
+      const topic = document.getElementById('tarotSpreadTopic').value;
+      const question = document.getElementById('tarotQuerentQuestion').value.trim();
+      const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56912345678';
+
+      let msg = `✨ ¡Hola Verónica! 🌙🔮\nSoy *${querent}* y quiero agendar una *${sessionName}* desde la página de *La Brujita Akbal*.\n\n`;
+      msg += `✴ *Tema de consulta:* ${topic}\n`;
+      if (question) {
+        msg += `✴ *Mi pregunta / intención:* "${question}"\n`;
+      }
+      if (tarotSpreadState.selectedCards.length === 3) {
+        const names = tarotSpreadState.selectedCards.map((c) => `${c.roman} ${c.name}`).join(' • ');
+        msg += `🃏 *Mis 3 cartas en la tirada online:* ${names}\n`;
+      }
+      msg += `\n¿Qué horarios tienes disponibles? ¡Muchas gracias! ✨`;
+
+      window.open(`https://wa.me/${rawPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+    });
+  });
+}
+
+function shuffleAndResetTarot() {
+  const copy = [...MAJOR_ARCANA_DECK];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  tarotSpreadState.shuffledDeck = copy.slice(0, 7);
+  tarotSpreadState.selectedCards = [];
+
+  renderTarotFan();
+  renderTarotSpreadSlots();
+  document.getElementById('tarotReadingSynthesis').hidden = true;
+}
+
+function renderTarotFan() {
+  const fanContainer = document.getElementById('tarotFanContainer');
+  const statusPill = document.getElementById('tarotStepStatus');
+  const count = tarotSpreadState.selectedCards.length;
+
+  statusPill.textContent =
+    count < 3
+      ? `🔮 Selecciona ${3 - count} carta(s) más del abanico (${count} / 3 elegidas)`
+      : '✨ ¡Tirada de 3 Arcanos completada! Lee tu mensaje abajo';
+
+  fanContainer.innerHTML = tarotSpreadState.shuffledDeck
+    .map((card, index) => {
+      const isPicked = tarotSpreadState.selectedCards.some((c) => c.roman === card.roman);
+      return `
+        <button
+          class="fan-card ${isPicked ? 'picked' : ''}"
+          data-fan-index="${index}"
+          aria-label="Carta misteriosa ${index + 1}"
+          ${isPicked || count >= 3 ? 'disabled' : ''}
+        >
+          <span class="fan-card__moon">🌙</span>
+          <span class="fan-card__num">AKBAL</span>
+          <span style="font-size: 0.65rem; color: var(--gold-primary);">✴ ☾ ✴</span>
+        </button>
+      `;
+    })
+    .join('');
+
+  fanContainer.querySelectorAll('.fan-card').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (tarotSpreadState.selectedCards.length >= 3) return;
+      const idx = parseInt(btn.getAttribute('data-fan-index'), 10);
+      const chosen = tarotSpreadState.shuffledDeck[idx];
+      if (!chosen) return;
+
+      tarotSpreadState.selectedCards.push(chosen);
+      renderTarotFan();
+      renderTarotSpreadSlots();
+      if (tarotSpreadState.selectedCards.length === 3) {
+        renderTarotSynthesis();
+      }
+    });
+  });
+}
+
+function renderTarotSpreadSlots() {
+  const placeholders = [
+    'Elige tu 1ª carta arriba (Pasado / Raíz)',
+    'Elige tu 2ª carta arriba (Presente)',
+    'Elige tu 3ª carta arriba (Futuro / Consejo)'
+  ];
+
+  for (let i = 0; i < 3; i++) {
+    const slotEl = document.getElementById(`spreadSlot${i}`);
+    const card = tarotSpreadState.selectedCards[i];
+
+    if (!card) {
+      slotEl.className = 'spread-slot__card';
+      slotEl.innerHTML = `<span class="slot-placeholder">${placeholders[i]}</span>`;
+    } else {
+      const positionMeaning = i === 0 ? card.past : i === 1 ? card.present : card.future;
+      slotEl.className = 'spread-slot__card revealed';
+      slotEl.innerHTML = `
+        <span class="revealed-arcana__symbol">${card.symbol}</span>
+        <span class="revealed-arcana__roman">ARCANO ${card.roman}</span>
+        <strong class="revealed-arcana__name">${card.name}</strong>
+        <span class="revealed-arcana__keywords">${card.keywords}</span>
+        <p class="revealed-arcana__meaning">${positionMeaning}</p>
+      `;
+    }
+  }
+}
+
+function renderTarotSynthesis() {
+  const synthesisBox = document.getElementById('tarotReadingSynthesis');
+  const synthesisBody = document.getElementById('tarotSynthesisBody');
+  const [c1, c2, c3] = tarotSpreadState.selectedCards;
+  if (!c1 || !c2 || !c3) return;
+
+  const querent = document.getElementById('tarotQuerentName').value.trim() || 'Alma Luminosa';
+  const topic = document.getElementById('tarotSpreadTopic').value;
+  const question = document.getElementById('tarotQuerentQuestion').value.trim();
+  const recommendedProduct = PRODUCTS.find((p) => p.id === c3.productId) || PRODUCTS[0];
+
+  synthesisBody.innerHTML = `
+    <p style="margin-bottom: 0.75rem;">
+      ✨ <strong>Mensaje de Verónica (+ Zyra 🐾) para ${querent}</strong> sobre <em>${topic}</em>:
+      ${question ? `<br><span style="color: var(--gold-light);">Tu consulta: "${question}"</span>` : ''}
+    </p>
+    <p style="margin-bottom: 0.75rem;">
+      Tu camino viene marcado por la energía de <strong>${c1.name} (${c1.roman})</strong> en el pasado, invitándote a honrar lo aprendido. Hoy, en tu presente, <strong>${c2.name} (${c2.roman})</strong> te señala el punto exacto donde debes enfocar tu fuerza espiritual, mientras que <strong>${c3.name} (${c3.roman})</strong> ilumina tu desenlace y consejo evolutivo.
+    </p>
+    <div style="background: rgba(229,184,75,0.1); border: 1px dashed var(--gold-primary); padding: 0.9rem 1.1rem; border-radius: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span style="font-size: 0.75rem; color: var(--gold-primary); font-weight: 800; letter-spacing: 0.08em;">🔮 AMULETO RECOMENDADO PARA TU TIRADA</span>
+        <strong style="display: block; color: var(--gold-light); font-size: 1rem;">${recommendedProduct.name} (${formatPrice(recommendedProduct.price)})</strong>
+      </div>
+      <button class="btn-add-cart" onclick="addToCart('${recommendedProduct.id}')">
+        + Sumar Amuleto a mi Pedido
+      </button>
+    </div>
+  `;
+
+  synthesisBox.hidden = false;
+}
+
+function sendTarotReadingWhatsApp() {
+  const [c1, c2, c3] = tarotSpreadState.selectedCards;
+  if (!c1 || !c2 || !c3) return;
+
+  const querent = document.getElementById('tarotQuerentName').value.trim() || 'Consultante de La Brujita Akbal';
+  const topic = document.getElementById('tarotSpreadTopic').value;
+  const question = document.getElementById('tarotQuerentQuestion').value.trim();
+  const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56912345678';
+
+  let msg = `🃏✨ ¡Hola Verónica! Acabo de realizar mi *Tirada de Tarot en Línea* en *La Brujita Akbal*:\n\n`;
+  msg += `👤 *Nombre / Signo:* ${querent}\n`;
+  msg += `🔮 *Área de consulta:* ${topic}\n`;
+  if (question) {
+    msg += `💭 *Mi pregunta:* "${question}"\n`;
+  }
+  msg += `\n*Mis 3 Arcanos revelados:*\n`;
+  msg += `1️⃣ *Pasado:* ${c1.roman} - ${c1.name}\n`;
+  msg += `2️⃣ *Presente:* ${c2.roman} - ${c2.name}\n`;
+  msg += `3️⃣ *Futuro / Consejo:* ${c3.roman} - ${c3.name}\n\n`;
+  msg += `Me encantaría profundizar esta lectura contigo en una sesión personalizada. ¿Me cuentas cómo agendar? ✨🌙`;
+
+  window.open(`https://wa.me/${rawPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+}
