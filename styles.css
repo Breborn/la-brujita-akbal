@@ -2021,3 +2021,121 @@ textarea {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* POP-UP AUTOMÁTICO FIN DE LECTURA EXPRESS & SALA DE VIDEOLLAMADA */
+.tarot-popup-modal {
+  max-width: 560px;
+  text-align: center;
+  background: radial-gradient(circle at 50% 15%, #261d0a 0%, #070709 88%);
+  border: 2px solid var(--gold-light);
+  box-shadow: 0 28px 65px rgba(0, 0, 0, 0.95), 0 0 42px rgba(229, 184, 75, 0.38);
+  animation: popupAppear 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes popupAppear {
+  0% { transform: scale(0.86) translateY(18px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.tarot-popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.25rem;
+}
+
+.tarot-popup__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.8vw, 1.9rem);
+  color: var(--gold-light);
+}
+
+.tarot-popup__cards {
+  background: rgba(229, 184, 75, 0.12);
+  border: 1px dashed var(--gold-primary);
+  color: var(--gold-light);
+  padding: 0.65rem 1.1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  width: 100%;
+}
+
+.tarot-popup__desc {
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+  margin-bottom: 0.4rem;
+}
+
+.tarot-popup__actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tarot-popup__main-cta {
+  font-size: 1rem;
+  padding: 1rem 1.4rem;
+  animation: goldPulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes goldPulseGlow {
+  0%, 100% { box-shadow: 0 8px 25px rgba(229, 184, 75, 0.38); }
+  50% { box-shadow: 0 0 36px rgba(255, 240, 179, 0.78); }
+}
+
+/* Sala de Videollamada Integrada */
+.video-call-panel {
+  margin-top: 2rem;
+  background: #060608;
+  border: 2px solid var(--gold-primary);
+  border-radius: 22px;
+  padding: 1.6rem;
+  box-shadow: var(--shadow-mystic), var(--shadow-gold);
+}
+
+.video-call-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.video-call-panel__header h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--gold-light);
+}
+
+.video-call-panel__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.video-call-panel__note {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.video-call-frame-wrap {
+  width: 100%;
+  height: 520px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1.5px solid var(--border-gold);
+  background: #030304;
+}
+
+.video-call-frame-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
