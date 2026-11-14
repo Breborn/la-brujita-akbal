@@ -726,6 +726,41 @@ function initTarotReadingRoom() {
     sendTarotReadingWhatsApp();
   });
 
+  // Eventos del Pop-up automático de Lectura Express y Sala de Videollamada
+  const followupPopup = document.getElementById('tarotFollowupPopup');
+  const closePopup = () => {
+    followupPopup.hidden = true;
+    followupPopup.setAttribute('aria-hidden', 'true');
+  };
+
+  document.getElementById('closeTarotPopupBtn').addEventListener('click', closePopup);
+  document.getElementById('popupDismissBtn').addEventListener('click', closePopup);
+  followupPopup.addEventListener('click', (e) => {
+    if (e.target === followupPopup) closePopup();
+  });
+
+  document.getElementById('popupContinueWhatsappBtn').addEventListener('click', () => {
+    closePopup();
+    sendTarotReadingWhatsApp();
+  });
+
+  document.getElementById('popupStartVideoCallBtn').addEventListener('click', () => {
+    closePopup();
+    openEmbeddedVideoCall();
+  });
+
+  document.getElementById('openLiveVideoBtn').addEventListener('click', () => {
+    openEmbeddedVideoCall();
+  });
+
+  document.getElementById('closeVideoRoomBtn').addEventListener('click', () => {
+    closeEmbeddedVideoCall();
+  });
+
+  document.getElementById('shareVideoLinkWhatsappBtn').addEventListener('click', () => {
+    notifyVeronicaVideoRoomWhatsApp();
+  });
+
   // Botones para agendar sesiones en vivo con Verónica
   document.querySelectorAll('[data-book-session]').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -869,6 +904,65 @@ function renderTarotSynthesis() {
   `;
 
   synthesisBox.hidden = false;
+
+  // Mostrar Pop-up automático al finalizar la lectura express
+  setTimeout(() => {
+    openTarotFollowupPopup(c1, c2, c3);
+  }, 650);
+}
+
+let activeVideoRoomUrl = '';
+
+function openTarotFollowupPopup(c1, c2, c3) {
+  const popup = document.getElementById('tarotFollowupPopup');
+  const summaryEl = document.getElementById('tarotPopupCardsSummary');
+  summaryEl.textContent = `🃏 Tus Cartas: I. ${c1.name} • II. ${c2.name} • III. ${c3.name}`;
+  popup.hidden = false;
+  popup.setAttribute('aria-hidden', 'false');
+}
+
+function openEmbeddedVideoCall() {
+  const panel = document.getElementById('videoCallPanel');
+  const frameWrap = document.getElementById('videoCallFrameWrap');
+  const querent = (document.getElementById('tarotQuerentName').value.trim() || 'Consultante')
+    .replace(/[^a-zA-Z0-9]/g, '');
+  const roomCode = `LaBrujitaAkbal-Tarot-${querent || 'Altar'}`;
+  activeVideoRoomUrl = `https://meet.jit.si/${roomCode}`;
+
+  frameWrap.innerHTML = `
+    <iframe
+      src="${activeVideoRoomUrl}#config.prejoinPageEnabled=false&config.startWithAudioMuted=false&config.startWithVideoMuted=false"
+      allow="camera; microphone; fullscreen; display-capture; autoplay"
+      title="Sala de Videollamada de Tarot con Verónica - La Brujita Akbal"
+    ></iframe>
+  `;
+
+  panel.hidden = false;
+  panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  showToast('📹 Sala de Videollamada abierta en la página');
+}
+
+function closeEmbeddedVideoCall() {
+  const panel = document.getElementById('videoCallPanel');
+  const frameWrap = document.getElementById('videoCallFrameWrap');
+  frameWrap.innerHTML = '';
+  panel.hidden = true;
+}
+
+function notifyVeronicaVideoRoomWhatsApp() {
+  const [c1, c2, c3] = tarotSpreadState.selectedCards;
+  const querent = document.getElementById('tarotQuerentName').value.trim() || 'Consultante de La Brujita Akbal';
+  const topic = document.getElementById('tarotSpreadTopic').value;
+  const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56912345678';
+
+  let msg = `📹✨ ¡Hola Verónica! Soy *${querent}* y estoy conectada/o en la *Sala de Videollamada de La Brujita Akbal* para continuar con mi lectura detallada.\n\n`;
+  msg += `🔮 *Tema:* ${topic}\n`;
+  if (c1 && c2 && c3) {
+    msg += `🃏 *Mis 3 cartas reveladas:* ${c1.name} • ${c2.name} • ${c3.name}\n`;
+  }
+  msg += `\n👉 *Entra a la videollamada aquí:* ${activeVideoRoomUrl}\n\n¡Te espero en la sala! ✨🌙`;
+
+  window.open(`https://wa.me/${rawPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
 }
 
 function sendTarotReadingWhatsApp() {
