@@ -404,12 +404,37 @@
             <div class="synthesis-body" id="tarotSynthesisBody"></div>
             <div class="synthesis-actions">
               <button class="btn btn--gold" id="sendReadingToVeronicaBtn">
-                <span>💬 Enviar mis 3 Cartas a Verónica para Lectura Profunda</span>
+                <span>💬 Para continuar con lectura más detallada, pincha aquí (WhatsApp)</span>
+              </button>
+              <button class="btn btn--outline" id="openLiveVideoBtn">
+                <span>📹 Conectar por Videollamada en la Página</span>
               </button>
               <button class="btn btn--outline" id="resetReadingBtn">
                 <span>🔄 Realizar Nueva Tirada</span>
               </button>
             </div>
+          </div>
+
+          <!-- Sala de Videollamada Integrada en la Misma Página -->
+          <div class="video-call-panel" id="videoCallPanel" hidden>
+            <div class="video-call-panel__header">
+              <div>
+                <span class="ornate-badge" style="margin-bottom: 0.3rem;">✴ SALA VIRTUAL CONSAGRADA • EN VIVO ✴</span>
+                <h3>Videollamada de Tarot con Verónica (+ Zyra 🐾)</h3>
+              </div>
+              <div class="video-call-panel__controls">
+                <button class="btn btn--gold" id="shareVideoLinkWhatsappBtn">
+                  <span>📲 Avisar a Verónica por WhatsApp que estoy en la Sala</span>
+                </button>
+                <button class="btn btn--outline" id="closeVideoRoomBtn">
+                  <span>✕ Cerrar Videollamada</span>
+                </button>
+              </div>
+            </div>
+            <p class="video-call-panel__note">
+              ✨ Permite el acceso a tu cámara y micrófono cuando el navegador lo solicite. Haz clic en <strong>"Avisar a Verónica por WhatsApp"</strong> para enviarle el enlace directo a esta misma sala y tus 3 cartas reveladas.
+            </p>
+            <div class="video-call-frame-wrap" id="videoCallFrameWrap"></div>
           </div>
         </div>
 
@@ -549,6 +574,39 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <button class="modal__close" id="closeModalBtn" aria-label="Cerrar ventana">✕</button>
       <div class="modal__body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- POP-UP AUTOMÁTICO AL TERMINAR LA LECTURA EXPRESS DE TAROT -->
+  <div class="modal-backdrop" id="tarotFollowupPopup" hidden aria-hidden="true">
+    <div class="modal tarot-popup-modal" role="dialog" aria-modal="true" aria-labelledby="tarotPopupTitle">
+      <button class="modal__close" id="closeTarotPopupBtn" aria-label="Cerrar aviso">✕</button>
+      <div class="tarot-popup-content">
+        <div class="ornate-badge">
+          <span class="eight-star">✴</span>
+          <span>LECTURA EXPRESS FINALIZADA</span>
+          <span class="eight-star">✴</span>
+        </div>
+        <h3 id="tarotPopupTitle" class="tarot-popup__title">
+          ✨ ¡Tus 3 Arcanos han hablado! ✨
+        </h3>
+        <p class="tarot-popup__cards" id="tarotPopupCardsSummary"></p>
+        <p class="tarot-popup__desc">
+          Esta tirada express abre el mensaje inicial de tu energía. Si deseas profundizar en tus preguntas personales, desbloquear caminos o conectar cara a cara con <strong>Verónica (+ Zyra 🐾)</strong>:
+        </p>
+
+        <div class="tarot-popup__actions">
+          <button class="btn btn--gold btn--full tarot-popup__main-cta" id="popupContinueWhatsappBtn">
+            <span>🔮 Para continuar con lectura más detallada, pincha aquí</span>
+          </button>
+          <button class="btn btn--outline btn--full" id="popupStartVideoCallBtn">
+            <span>📹 Conectar por Videollamada desde esta misma página</span>
+          </button>
+          <button class="link-btn" id="popupDismissBtn" style="margin-top: 0.4rem;">
+            Quedarme leyendo el resumen en la mesa ritual
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
