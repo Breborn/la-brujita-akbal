@@ -1,5 +1,65 @@
 const PRODUCTS = [
   {
+    id: 'tar-11',
+    name: 'Tarot Egipcio + Libro Guía de Interpretación (Edición Completa)',
+    category: 'tarot',
+    categoryLabel: 'Cartas de Tarot',
+    intention: 'Intuición',
+    price: 22000,
+    badge: '📚 Incluye Libro + Mazo',
+    image: 'assets/tarot-egipcio-libro.jpg',
+    shortDesc: 'Pack completo de sabiduría hermética: mazo de 78 arcanos del Tarot Egipcio más libro grande de estudio e interpretación simbólica y astrológica.',
+    ritualTip: 'Ideal para estudiar en profundidad la simbología de los antiguos templos egipcios; conságralo junto a una amatista o escarabajo sagrado.'
+  },
+  {
+    id: 'tar-12',
+    name: 'El Tarot de Marsella + El Libro Mágico de los 78 Arcanos',
+    category: 'tarot',
+    categoryLabel: 'Cartas de Tarot',
+    intention: 'Intuición',
+    price: 22000,
+    badge: '📚 Incluye Libro + Mazo',
+    image: 'assets/tarot-marsella-libro.jpg',
+    shortDesc: 'Edición completa que incluye la baraja clásica del Tarot de Marsella (78 cartas) y el libro completo "Cómo interpretar las cartas del Tarot de Marsella".',
+    ritualTip: 'Perfecto para aprender desde cero o perfeccionar tiradas tradicionales con el respaldo de un libro detallado paso a paso.'
+  },
+  {
+    id: 'tar-13',
+    name: 'Tarot Osho Zen + Libro Guía Completo (78 Cartas Mágicas)',
+    category: 'tarot',
+    categoryLabel: 'Cartas de Tarot',
+    intention: 'Enraizamiento',
+    price: 22000,
+    badge: '📚 Incluye Libro + Mazo',
+    image: 'assets/tarot-osho-zen-libro.jpg',
+    shortDesc: 'El trascendental juego del Zen en su edición completa: baraja de 78 cartas mágicas más libro grande con meditaciones y significados profundos del aquí y ahora.',
+    ritualTip: 'Úsalo para lecturas terapéuticas de autoconocimiento, bloqueos emocionales y despertar de la consciencia presente.'
+  },
+  {
+    id: 'tar-14',
+    name: 'El Pequeño Tarot Rider — Edición Ilustrada SmithTiny (78 Cartas)',
+    category: 'tarot',
+    categoryLabel: 'Cartas de Tarot',
+    intention: 'Intuición',
+    price: 15000,
+    badge: 'Edición Ilustrada',
+    image: 'assets/tarot-rider-smithtiny.jpg',
+    shortDesc: 'Encantadora versión ilustrada estilo kawaii/caricatura del clásico Rider-Waite en español. 78 cartas llenas de carisma, color y ternura.',
+    ritualTip: 'Un mazo súper amigable y luminoso, ideal para lecturas cotidianas, regalo brujil o para conectar con tu niño/a interior.'
+  },
+  {
+    id: 'tar-15',
+    name: 'Tarot Thoth de Aleister Crowley (Edición Arkano Books)',
+    category: 'tarot',
+    categoryLabel: 'Cartas de Tarot',
+    intention: 'Intuición',
+    price: 15000,
+    badge: 'Alta Magia & Alquimia',
+    image: 'assets/tarot-thoth-crowley.jpg',
+    shortDesc: 'Uno de los mazos más poderosos y esotéricos de la historia, pintado por Lady Frieda Harris con simbolismo cabalístico, alquímico y astrológico.',
+    ritualTip: 'Resguárdalo envuelto en tela morada o negra junto a una obsidiana o cuarzo cristal para mantener su vibración hermética.'
+  },
+  {
     id: 'tar-03',
     name: 'El Tarot Psíquico (65 Cartas y Manual Guía)',
     category: 'tarot',
