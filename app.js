@@ -1464,8 +1464,8 @@ function openEmbeddedVideoCall() {
   const frameWrap = document.getElementById('videoCallFrameWrap');
   const externalBtn = document.getElementById('openExternalVideoRoomBtn');
   const rawQuerent = document.getElementById('tarotQuerentName').value.trim() || 'Consultante';
-  const querent = rawQuerent.replace(/[^a-zA-Z0-9]/g, '');
-  const roomCode = `LaBrujitaAkbal-Tarot-${querent || 'Altar'}`;
+  const querent = rawQuerent.replace(/[^a-zA-Z0-9]/g, '') || 'Altar';
+  const roomCode = `LaBrujitaAkbalTarot${querent}`;
   
   // Conexión directa automática: sin prejoin, sin lobby, sin pedir nombre, entra de inmediato
   activeVideoRoomUrl = `https://fairmeeting.net/${roomCode}`;
@@ -1473,7 +1473,7 @@ function openEmbeddedVideoCall() {
   const iframeSrc = `${activeVideoRoomUrl}${clientFlags}`;
 
   if (externalBtn) {
-    externalBtn.href = `${activeVideoRoomUrl}#config.prejoinConfig.enabled=false&config.prejoinPageEnabled=false&config.welcomePage.disabled=true&config.deeplinking.disabled=true&config.defaultLanguage="es"&userInfo.displayName="${encodeURIComponent(rawQuerent)}"`;
+    externalBtn.href = `sala.html?sala=${roomCode}&rol=consultante`;
   }
 
   frameWrap.innerHTML = `
@@ -1502,14 +1502,15 @@ function notifyVeronicaVideoRoomWhatsApp() {
   const topic = document.getElementById('tarotSpreadTopic').value;
   const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56956823670';
   const safeName = querent.replace(/[^a-zA-Z0-9]/g, '') || 'Altar';
-  const directUrl = `https://fairmeeting.net/LaBrujitaAkbal-Tarot-${safeName}#config.prejoinConfig.enabled=false&config.prejoinPageEnabled=false&config.welcomePage.disabled=true&config.deeplinking.disabled=true&config.disableDeepLinking=true&config.defaultLanguage="es"&userInfo.displayName="Verónica"`;
+  const roomCode = `LaBrujitaAkbalTarot${safeName}`;
+  const portalUrl = `https://breborn.github.io/la-brujita-akbal/sala.html?sala=${roomCode}&rol=veronica`;
 
   let msg = `📹✨ ¡Hola Verónica! Soy *${querent}* y estoy esperándote en la *Sala de Videollamada de La Brujita Akbal* para continuar con mi lectura detallada.\n\n`;
   msg += `🔮 *Tema:* ${topic}\n`;
   if (c1 && c2 && c3) {
     msg += `🃏 *Mis 3 cartas reveladas:* ${c1.name} • ${c2.name} • ${c3.name}\n`;
   }
-  msg += `\n👉 *PINCHA AQUÍ PARA ENTRAR A LA SALA (Entra directo sin configurar nada):*\n${directUrl}\n\n`;
+  msg += `\n👉 *PINCHA AQUÍ PARA ENTRAR A LA SALA:*\n${portalUrl}\n\n`;
   msg += `📲 *O si prefieres:* ¡Iníciame la videollamada por WhatsApp directamente aquí! ✨🌙`;
 
   window.open(`https://wa.me/${rawPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
@@ -1603,8 +1604,8 @@ function notifyPaymentAndJoinWhatsApp() {
   const topic = document.getElementById('tarotSpreadTopic').value;
   const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56956823670';
   const safeName = querent.replace(/[^a-zA-Z0-9]/g, '') || 'Altar';
-  // Enlace directo con auto-ingreso para Verónica: sin prejoin, sin lobby, sin pedir nombre
-  const roomUrl = `https://fairmeeting.net/LaBrujitaAkbal-Tarot-${safeName}#config.prejoinConfig.enabled=false&config.prejoinPageEnabled=false&config.welcomePage.disabled=true&config.deeplinking.disabled=true&config.disableDeepLinking=true&config.defaultLanguage="es"&userInfo.displayName="Verónica"`;
+  const roomCode = `LaBrujitaAkbalTarot${safeName}`;
+  const portalRoomUrl = `https://breborn.github.io/la-brujita-akbal/sala.html?sala=${roomCode}&rol=veronica`;
 
   let msg = `✨🔮 ¡Hola Verónica! Soy *${querent}* y acabo de transferir los *$25.000* para mi *Sesión de Tarot en Vivo (45 min)* en La Brujita Akbal.\n\n`;
   msg += `📸 *Te adjunto mi comprobante de transferencia por aquí.*\n`;
@@ -1612,7 +1613,7 @@ function notifyPaymentAndJoinWhatsApp() {
   if (c1 && c2 && c3) {
     msg += `🃏 *Mis 3 cartas en la mesa ritual:* ${c1.name} • ${c2.name} • ${c3.name}\n`;
   }
-  msg += `\n👉 *PINCHA AQUÍ PARA ENTRAR A LA SALA (Entra directo sin configurar nada):*\n${roomUrl}\n\n`;
+  msg += `\n👉 *PINCHA AQUÍ PARA ENTRAR A LA SALA:*\n${portalRoomUrl}\n\n`;
   msg += `📲 *O si estás en tu celular y prefieres:* ¡Iníciame la videollamada por WhatsApp directamente aquí! ✨🌙`;
 
   // 1. Abrir WhatsApp inmediatamente en el evento de click (evita bloqueo de popups)

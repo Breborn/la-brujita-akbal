@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sala Virtual de Tarot • La Brujita Akbal</title>
+  <meta name="description" content="Sala sagrada de videollamada para lecturas de Tarot en vivo con Verónica y La Brujita Akbal." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #070604;
+      --bg-surface: #100e0a;
+      --gold-primary: #e5b84b;
+      --gold-light: #f7d984;
+      --gold-foil: linear-gradient(135deg, #f7d984 0%, #e5b84b 45%, #b8860b 80%, #f7d984 100%);
+      --text-main: #f5f0e6;
+      --text-muted: #b8b09d;
+      --border-gold: rgba(229, 184, 75, 0.35);
+      --font-display: 'Cinzel', serif;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Cabecera Sagrada */
+    .sala-header {
+      background: rgba(16, 14, 10, 0.95);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 0.75rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .sala-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .sala-moon {
+      font-size: 1.5rem;
+      filter: drop-shadow(0 0 8px rgba(229, 184, 75, 0.6));
+    }
+
+    .sala-brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      letter-spacing: 0.12em;
+      color: var(--gold-light);
+    }
+
+    .sala-brand-text span {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .sala-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(229, 184, 75, 0.12);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-light);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .sala-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #25d366;
+      box-shadow: 0 0 10px #25d366;
+      animation: pulseDot 1.5s infinite;
+    }
+
+    @keyframes pulseDot {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    .sala-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid var(--border-gold);
+      background: rgba(25, 22, 17, 0.9);
+      color: var(--gold-light);
+      transition: all 0.2s ease;
+    }
+
+    .btn-sm:hover {
+      background: rgba(229, 184, 75, 0.18);
+      border-color: var(--gold-primary);
+    }
+
+    .btn-sm--gold {
+      background: var(--gold-foil);
+      color: #070604;
+      border: none;
+    }
+
+    /* Contenedor de Video */
+    .video-viewport {
+      flex: 1;
+      width: 100%;
+      min-height: calc(100vh - 65px);
+      background: #000;
+      position: relative;
+    }
+
+    .video-viewport iframe {
+      width: 100%;
+      height: 100%;
+      min-height: calc(100vh - 65px);
+      border: none;
+      display: block;
+    }
+
+    /* Barra de ayuda flotante inferior */
+    .sala-footer-bar {
+      background: rgba(16, 14, 10, 0.92);
+      border-top: 1px solid rgba(229, 184, 75, 0.25);
+      padding: 0.6rem 1rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .sala-footer-bar a {
+      color: var(--gold-light);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .sala-header {
+        padding: 0.5rem 0.8rem;
+      }
+      .sala-brand-text h1 {
+        font-size: 0.9rem;
+      }
+      .video-viewport {
+        min-height: calc(100vh - 90px);
+      }
+      .video-viewport iframe {
+        min-height: calc(100vh - 90px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="sala-header">
+    <a href="index.html#lectura-tarot" class="sala-brand">
+      <span class="sala-moon">🌙</span>
+      <div class="sala-brand-text">
+        <h1>LA BRUJITA AKBAL</h1>
+        <span id="roomStatusLabel">SALA CONSAGRADA EN VIVO</span>
+      </div>
+    </a>
+
+    <div class="sala-badge">
+      <span class="sala-badge-dot"></span>
+      <span id="roleBadge">EN VIVO CON VERÓNICA</span>
+    </div>
+
+    <div class="sala-actions">
+      <button class="btn-sm" id="fullscreenBtn" title="Pantalla completa">⛶ Pantalla Completa</button>
+      <a href="index.html" class="btn-sm">🕯️ Volver a la Tienda</a>
+    </div>
+  </header>
+
+  <main class="video-viewport" id="videoContainer">
+    <!-- El iframe de la sala se inyecta con parámetros de ingreso automático -->
+  </main>
+
+  <footer class="sala-footer-bar">
+    <span>✨ Si tu navegador solicita permisos, permite el acceso a tu micrófono y cámara.</span>
+    <span>📲 ¿Prefieres llamada directa? <a href="https://wa.me/56956823670" target="_blank" rel="noopener">Abrir WhatsApp Directo</a></span>
+  </footer>
+
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const rawRoom = urlParams.get('sala') || 'LaBrujitaAkbalTarotAltar';
+      const cleanRoom = rawRoom.replace(/[^a-zA-Z0-9]/g, '') || 'LaBrujitaAkbalTarotAltar';
+      const role = urlParams.get('rol') || 'veronica';
+      const displayName = role === 'veronica' ? 'Verónica' : 'Consultante';
+
+      const roleBadge = document.getElementById('roleBadge');
+      if (roleBadge) {
+        roleBadge.textContent = role === 'veronica' ? 'CONECTADA COMO VERÓNICA' : 'CONECTADO AL ALTAR';
+      }
+
+      // Parámetros de auto-join que eliminan el lobby y configuran en español
+      const flags = [
+        'config.prejoinConfig.enabled=false',
+        'config.prejoinPageEnabled=false',
+        'config.welcomePage.disabled=true',
+        'config.deeplinking.disabled=true',
+        'config.disableDeepLinking=true',
+        'config.defaultLanguage="es"',
+        'interfaceConfig.DEFAULT_LANG="es"',
+        `userInfo.displayName="${displayName}"`,
+        'config.startWithAudioMuted=false',
+        'config.startWithVideoMuted=false'
+      ].join('&');
+
+      const roomUrl = `https://fairmeeting.net/${cleanRoom}#${flags}`;
+
+      const container = document.getElementById('videoContainer');
+      container.innerHTML = `
+        <iframe
+          src="${roomUrl}"
+          allow="camera; microphone; fullscreen; display-capture; autoplay"
+          title="Sala de Videollamada de Tarot de La Brujita Akbal"
+        ></iframe>
+      `;
+
+      // Botón de pantalla completa
+      const fsBtn = document.getElementById('fullscreenBtn');
+      if (fsBtn) {
+        fsBtn.addEventListener('click', () => {
+          const iframe = container.querySelector('iframe');
+          if (!iframe) return;
+          if (iframe.requestFullscreen) {
+            iframe.requestFullscreen();
+          } else if (iframe.webkitRequestFullscreen) {
+            iframe.webkitRequestFullscreen();
+          } else if (iframe.msRequestFullscreen) {
+            iframe.msRequestFullscreen();
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
