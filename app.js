@@ -889,28 +889,7 @@ function initTarotReadingRoom() {
     sendTarotReadingWhatsApp();
   });
 
-  // Eventos del Pop-up automático de Lectura Express y Sala de Videollamada
-  const followupPopup = document.getElementById('tarotFollowupPopup');
-  const closePopup = () => {
-    followupPopup.hidden = true;
-    followupPopup.setAttribute('aria-hidden', 'true');
-  };
 
-  document.getElementById('closeTarotPopupBtn').addEventListener('click', closePopup);
-  document.getElementById('popupDismissBtn').addEventListener('click', closePopup);
-  followupPopup.addEventListener('click', (e) => {
-    if (e.target === followupPopup) closePopup();
-  });
-
-  document.getElementById('popupContinueWhatsappBtn').addEventListener('click', () => {
-    closePopup();
-    sendTarotReadingWhatsApp();
-  });
-
-  document.getElementById('popupStartVideoCallBtn').addEventListener('click', () => {
-    closePopup();
-    openPaymentModal();
-  });
 
   document.getElementById('openLiveVideoBtn').addEventListener('click', () => {
     openPaymentModal();
@@ -1082,21 +1061,12 @@ function renderTarotSynthesis() {
 
   synthesisBox.hidden = false;
 
-  // Saltar de inmediato el pop-up de direccionamiento a lectura detallada con Verónica
-  setTimeout(() => {
-    openPaymentModal(c1, c2, c3);
-  }, 500);
+  // Sin pop-up automático: la persona decide si quedarse con la lectura express o continuar
 }
 
 let activeVideoRoomUrl = '';
 
-function openTarotFollowupPopup(c1, c2, c3) {
-  const popup = document.getElementById('tarotFollowupPopup');
-  const summaryEl = document.getElementById('tarotPopupCardsSummary');
-  summaryEl.textContent = `🃏 Tus Cartas: I. ${c1.name} • II. ${c2.name} • III. ${c3.name}`;
-  popup.hidden = false;
-  popup.setAttribute('aria-hidden', 'false');
-}
+
 
 function openEmbeddedVideoCall() {
   const panel = document.getElementById('videoCallPanel');
