@@ -857,17 +857,30 @@ let tarotSpreadState = {
   selectedCards: []
 };
 
+let tarotDeckHasBeenShuffled = false;
+
 function initTarotReadingRoom() {
   const fanContainer = document.getElementById('tarotFanContainer');
   if (!fanContainer) return;
 
+  tarotDeckHasBeenShuffled = false;
   shuffleAndResetTarot(false);
 
-  document.getElementById('shuffleDeckBtn').addEventListener('click', () => {
-    shuffleAndResetTarot(true);
-  });
+  const shuffleBtn = document.getElementById('shuffleDeckBtn');
+
+  // El efecto de barajado solo se ejecuta UNA VEZ por tirada
+  if (shuffleBtn) {
+    shuffleBtn.addEventListener('click', () => {
+      if (tarotDeckHasBeenShuffled || isDeckShuffling) return;
+      shuffleAndResetTarot(true);
+    });
+  }
 
   document.getElementById('revealAllSpreadBtn').addEventListener('click', () => {
+    if (isDeckShuffling) return;
+    tarotDeckHasBeenShuffled = true;
+    updateShuffleBtnState();
+
     while (tarotSpreadState.selectedCards.length < 3) {
       const remaining = tarotSpreadState.shuffledDeck.filter(
         (c) => !tarotSpreadState.selectedCards.some((sel) => sel.roman === c.roman)
@@ -875,13 +888,16 @@ function initTarotReadingRoom() {
       const nextCard = remaining[Math.floor(Math.random() * remaining.length)];
       tarotSpreadState.selectedCards.push(nextCard);
     }
-    renderTarotFan();
+    renderTarotFan(false);
     renderTarotSpreadSlots();
     renderTarotSynthesis();
   });
 
   document.getElementById('resetReadingBtn').addEventListener('click', () => {
-    shuffleAndResetTarot(true);
+    tarotDeckHasBeenShuffled = false;
+    updateShuffleBtnState();
+    shuffleAndResetTarot(false);
+    showToast('✨ Altar reiniciado. Puedes barajar el mazo para tu nueva tirada.');
   });
 
   document.getElementById('sendReadingToVeronicaBtn').addEventListener('click', () => {
@@ -1054,15 +1070,30 @@ function triggerCardShuffleAnimation(callback) {
       card.style.removeProperty('z-index');
     });
 
-    if (shuffleBtn) {
-      shuffleBtn.disabled = false;
-      shuffleBtn.classList.remove('btn--shuffling');
-      shuffleBtn.innerHTML = '<span>🔀 Barajar el Mazo Consagrado</span>';
-    }
-
+    tarotDeckHasBeenShuffled = true;
     isDeckShuffling = false;
+    updateShuffleBtnState();
+
     if (callback) callback();
   }, 1300);
+}
+
+function updateShuffleBtnState() {
+  const shuffleBtn = document.getElementById('shuffleDeckBtn');
+  if (!shuffleBtn) return;
+
+  if (tarotDeckHasBeenShuffled) {
+    shuffleBtn.disabled = true;
+    shuffleBtn.classList.remove('btn--shuffling');
+    shuffleBtn.classList.add('is-shuffled-done');
+    shuffleBtn.innerHTML = '<span>✓ Mazo Barajado en el Altar</span>';
+    shuffleBtn.title = 'El mazo ya fue consagrado y barajado para esta lectura';
+  } else {
+    shuffleBtn.disabled = false;
+    shuffleBtn.classList.remove('btn--shuffling', 'is-shuffled-done');
+    shuffleBtn.innerHTML = '<span>🔀 Barajar el Mazo Consagrado</span>';
+    shuffleBtn.title = 'Barajar los 22 Arcanos Mayores en el altar consagrado';
+  }
 }
 
 function shuffleAndResetTarot(animate = false) {
@@ -1136,6 +1167,8 @@ function renderTarotFan(justShuffled = false) {
       if (!chosen) return;
 
       tarotSpreadState.selectedCards.push(chosen);
+      tarotDeckHasBeenShuffled = true;
+      updateShuffleBtnState();
       renderTarotFan(false);
       renderTarotSpreadSlots();
       if (tarotSpreadState.selectedCards.length === 3) {
