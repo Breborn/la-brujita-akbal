@@ -230,8 +230,8 @@
   <script>
     (function() {
       const urlParams = new URLSearchParams(window.location.search);
-      const rawRoom = urlParams.get('sala') || 'LaBrujitaAkbalTarotAltar';
-      const cleanRoom = rawRoom.replace(/[^a-zA-Z0-9]/g, '') || 'LaBrujitaAkbalTarotAltar';
+      const rawRoom = urlParams.get('sala') || 'LaBrujitaAkbal';
+      const cleanRoom = rawRoom.replace(/[^a-zA-Z0-9]/g, '') || 'LaBrujitaAkbal';
       const role = urlParams.get('rol') || 'veronica';
       const displayName = role === 'veronica' ? 'Verónica' : 'Consultante';
 

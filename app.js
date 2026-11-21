@@ -1464,8 +1464,7 @@ function openEmbeddedVideoCall() {
   const frameWrap = document.getElementById('videoCallFrameWrap');
   const externalBtn = document.getElementById('openExternalVideoRoomBtn');
   const rawQuerent = document.getElementById('tarotQuerentName').value.trim() || 'Consultante';
-  const querent = rawQuerent.replace(/[^a-zA-Z0-9]/g, '') || 'Altar';
-  const roomCode = `LaBrujitaAkbalTarot${querent}`;
+  const roomCode = 'LaBrujitaAkbal';
   
   // Conexión directa automática: sin prejoin, sin lobby, sin pedir nombre, entra de inmediato
   activeVideoRoomUrl = `https://fairmeeting.net/${roomCode}`;
@@ -1502,8 +1501,7 @@ function notifyVeronicaVideoRoomWhatsApp() {
   const topic = document.getElementById('tarotSpreadTopic').value;
   const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56956823670';
   const safeName = querent.replace(/[^a-zA-Z0-9]/g, '') || 'Altar';
-  const roomCode = `LaBrujitaAkbalTarot${safeName}`;
-  const portalUrl = `https://breborn.github.io/la-brujita-akbal/sala.html?sala=${roomCode}&rol=veronica`;
+  const portalUrl = 'https://breborn.github.io/la-brujita-akbal/sala.html';
 
   let msg = `📹✨ ¡Hola Verónica! Soy *${querent}* y estoy esperándote en la *Sala de Videollamada de La Brujita Akbal* para continuar con mi lectura detallada.\n\n`;
   msg += `🔮 *Tema:* ${topic}\n`;
@@ -1604,8 +1602,7 @@ function notifyPaymentAndJoinWhatsApp() {
   const topic = document.getElementById('tarotSpreadTopic').value;
   const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56956823670';
   const safeName = querent.replace(/[^a-zA-Z0-9]/g, '') || 'Altar';
-  const roomCode = `LaBrujitaAkbalTarot${safeName}`;
-  const portalRoomUrl = `https://breborn.github.io/la-brujita-akbal/sala.html?sala=${roomCode}&rol=veronica`;
+  const portalRoomUrl = 'https://breborn.github.io/la-brujita-akbal/sala.html';
 
   let msg = `✨🔮 ¡Hola Verónica! Soy *${querent}* y acabo de transferir los *$25.000* para mi *Sesión de Tarot en Vivo (45 min)* en La Brujita Akbal.\n\n`;
   msg += `📸 *Te adjunto mi comprobante de transferencia por aquí.*\n`;
