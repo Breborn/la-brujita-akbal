@@ -754,101 +754,261 @@ const MAJOR_ARCANA_DECK = [
     roman: 'I',
     name: 'El Mago',
     symbol: '🪄',
-    keywords: 'Manifestación • Poder Personal • Inicios',
-    past: 'Has venido reuniendo todas las herramientas internas y la experiencia necesaria para dar un salto importante.',
-    present: 'Tienes en tus manos el poder de materializar lo que deseas. Confía en tus dones y actúa con determinación.',
-    future: 'Se abre un nuevo ciclo creativo muy fértil; tus intenciones bien enfocadas darán frutos concretos.',
-    productId: 'vel-02'
+    productId: 'vel-02',
+    interpretations: {
+      general: {
+        keywords: 'Manifestación • Poder Personal • Inicios',
+        past: 'Reuniste el conocimiento, las herramientas internas y la experiencia para dar un salto trascendente.',
+        present: 'Tienes en tus manos el poder de materializar lo que te propongas. Actúa con enfoque y determinación.',
+        future: 'Se abre un nuevo ciclo creativo muy fértil; tus intenciones bien dirigidas darán frutos concretos.'
+      },
+      trabajo: {
+        keywords: 'Iniciativa • Nuevos Negocios • Liderazgo',
+        past: 'Desarrollaste habilidades clave y experiencia práctica que hoy te colocan en una posición ventajosa.',
+        present: 'Cuentas con todos los recursos para liderar, emprender o postular a ese nuevo rol. Confía en tu talento.',
+        future: 'Firma de contratos favorables, despegue exitoso de proyectos y un aumento tangible de tus ingresos.'
+      },
+      amor: {
+        keywords: 'Conquista • Magnetismo • Comunicación Sincera',
+        past: 'Aprendiste a comunicarte con honestidad y definir con claridad lo que deseas en una relación.',
+        present: 'Gran poder de atracción e iniciativa. Es el momento de expresar lo que sientes y tomar la delantera.',
+        future: 'Comienzo de un vínculo apasionado o renovación total de la chispa y complicidad en tu relación.'
+      }
+    }
   },
   {
     roman: 'II',
     name: 'La Sacerdotisa de Akbal',
     symbol: '🌙',
-    keywords: 'Intuición • Misterio • Sabiduría Interior',
-    past: 'Tu intuición ya te venía avisando a través de sueños y corazonadas lo que estaba ocurriendo bajo la superficie.',
-    present: 'Es momento de guardar silencio, observar sin prisa y escuchar la voz de tu alma antes de hablar.',
-    future: 'Un secreto o verdad importante se revelará a tu favor cuando conectes con tu calma interior.',
-    productId: 'tar-01'
+    productId: 'tar-01',
+    interpretations: {
+      general: {
+        keywords: 'Intuición • Misterio • Sabiduría Interior',
+        past: 'Tu intuición y sincronicidades ya te venían advirtiendo lo que ocurría bajo la superficie.',
+        present: 'Momento de guardar silencio sagrado, observar sin prisa y escuchar la voz de tu alma.',
+        future: 'Una verdad o respuesta importante se revelará a tu favor cuando conectes con tu calma interior.'
+      },
+      trabajo: {
+        keywords: 'Estrategia • Prudencia • Oportunidad Oculta',
+        past: 'Trabajaste discretamente, cultivando conocimientos y planes sin necesidad de hacer alarde.',
+        present: 'No reveles todas tus estrategias laborales todavía. Lee con calma la letra chica de contratos y acuerdos.',
+        future: 'Reconocimiento sólido a tu conocimiento; se destraban trámites y surge una oportunidad oculta muy rentable.'
+      },
+      amor: {
+        keywords: 'Conexión Álmica • Misterio • Sensibilidad',
+        past: 'Callaste emociones o guardaste sentimientos profundos esperando el momento oportuno para abrirte.',
+        present: 'Sintonía psíquica sutil. Haz caso a tu corazonada sobre las verdaderas intenciones de la otra persona.',
+        future: 'Comprensión mutua a nivel espiritual profundo; se disuelve un misterio y se consolida la confianza íntima.'
+      }
+    }
   },
   {
     roman: 'III',
     name: 'La Emperatriz',
     symbol: '👑',
-    keywords: 'Abundancia • Creatividad • Amor Propio',
-    past: 'Sembraste con amor y paciencia, cuidando tus vínculos y tu propia energía vital.',
-    present: 'Estás en una etapa de magnetismo, fertilidad de proyectos y merecimiento. Permítete recibir.',
-    future: 'Florecimiento económico y emocional; lo que cuides hoy crecerá con fuerza y belleza.',
-    productId: 'pla-02'
+    productId: 'pla-02',
+    interpretations: {
+      general: {
+        keywords: 'Abundancia • Creatividad • Merecimiento',
+        past: 'Sembraste con paciencia y dedicación, nutriendo tus sueños con amor propio y constancia.',
+        present: 'Etapa de magnetismo, fertilidad de ideas y merecimiento. Permítete recibir lo bueno.',
+        future: 'Florecimiento integral; todo lo que cuides con afecto crecerá con fuerza y belleza.'
+      },
+      trabajo: {
+        keywords: 'Prosperidad • Expansión • Negocios Fértiles',
+        past: 'Invertiste tiempo, esfuerzo y creatividad en proyectos que hoy comienzan a dar frutos tangibles.',
+        present: 'Excelente ciclo financiero y productivo. Tus ideas generan valor real, clientes e ingresos crecientes.',
+        future: 'Expansión económica notable, consolidación de tu emprendimiento o ascenso con gran reconocimiento.'
+      },
+      amor: {
+        keywords: 'Amor Pleno • Calidez • Belleza y Armonía',
+        past: 'Entregaste cariño sincero y cuidado en tus relaciones, construyendo bases afectivas nobles.',
+        present: 'Tu energía irradia un encanto cálido y magnético que atrae afecto genuino y atención sincera.',
+        future: 'Amor pleno, armonía doméstica, fertilidad de proyectos compartidos y gran dicha en pareja.'
+      }
+    }
   },
   {
     roman: 'VI',
     name: 'Los Enamorados',
     symbol: '💛',
-    keywords: 'Elección del Corazón • Armonía • Vínculos',
-    past: 'Una decisión importante o encuentro marcó el rumbo emocional en el que te encuentras hoy.',
-    present: 'El Tarot te pide elegir desde el amor auténtico y la coherencia con tus valores, no desde el miedo.',
-    future: 'Alianza sincera, reconciliación con tu propio deseo y claridad total en tus relaciones.',
-    productId: 'vel-02'
+    productId: 'vel-02',
+    interpretations: {
+      general: {
+        keywords: 'Elección Crucial • Armonía • Coherencia',
+        past: 'Una decisión importante o encrucijada marcó el rumbo en el que te encuentras hoy.',
+        present: 'El oráculo te pide elegir desde la coherencia con tus valores del alma, no desde el temor.',
+        future: 'Alineación total con tu verdadero camino y serenidad con las decisiones tomadas.'
+      },
+      trabajo: {
+        keywords: 'Encrucijada Laboral • Alianzas • Decisiones Clave',
+        past: 'Tuviste que elegir entre dos opciones, contratos o caminos profesionales que definieron tu situación actual.',
+        present: 'Encrucijada profesional clave: dos propuestas o alternativas frente a ti. Elige la que tenga proyección y ética.',
+        future: 'Sociedad comercial próspera, alianzas de mutua confianza y éxito tras elegir con determinación.'
+      },
+      amor: {
+        keywords: 'Amor de Pareja • Elección del Corazón • Afinidad',
+        past: 'Un encuentro significativo o decisión amorosa previa dejó una huella profunda en tus sentimientos.',
+        present: 'Momento de sinceridad afectiva: decidir comprometerte de verdad, sanar o abrirte sin máscaras al amor.',
+        future: 'Unión correspondida, complicidad sincera y reconciliación profunda entre dos almas afines.'
+      }
+    }
   },
   {
     roman: 'IX',
     name: 'El Ermitaño',
     symbol: '🏮',
-    keywords: 'Introspección • Protección • Guía Interna',
-    past: 'Necesitaste tomar distancia del ruido externo para sanar y comprender tu verdadero propósito.',
-    present: 'Protege tu centro energético (tu plexo solar) y selecciona muy bien con quién compartes tu energía.',
-    future: 'Tu prudencia actual te llevará a una respuesta sabia y a una paz profunda e inquebrantable.',
-    productId: 'amb-01'
+    productId: 'amb-01',
+    interpretations: {
+      general: {
+        keywords: 'Introspección • Protección • Sabiduría',
+        past: 'Necesitaste tomar distancia del ruido externo para escuchar tu verdad y reencontrar tu centro.',
+        present: 'Protege tu energía y tu tiempo. La calma y el discernimiento te darán la respuesta precisa.',
+        future: 'Sabiduría madura, paz interior inalterable y claridad absoluta para dar el próximo paso.'
+      },
+      trabajo: {
+        keywords: 'Especialización • Prudencia Financiera • Análisis',
+        past: 'Un periodo de estudio, análisis o trabajo riguroso en solitario te dotó de maestría profesional.',
+        present: 'No tomes decisiones de dinero apresuradas. Evalúa números, gastos y riesgos con prudencia.',
+        future: 'Alcanzas un estatus de autoridad y respeto en tu rubro; tus finanzas se ordenan con bases firmes.'
+      },
+      amor: {
+        keywords: 'Autoconocimiento • Sanar el Pasado • Amor Propio',
+        past: 'Viviste un tiempo de soledad o distancia afectiva necesario para valorarte y sanar heridas viejas.',
+        present: 'Comprende bien lo que necesitas antes de comprometerte por temor a la soledad. Primero tu paz.',
+        future: 'Atracción de alguien maduro emocionalmente que respeta tus tiempos y valora tu mundo interno.'
+      }
+    }
   },
   {
     roman: 'X',
     name: 'La Rueda de la Fortuna',
     symbol: '☸️',
-    keywords: 'Destino • Movimiento • Cambio de Ciclo',
-    past: 'Atravesaste altibajos que te enseñaron a fluir y no aferrarte a lo que ya cumplió su ciclo.',
-    present: 'La energía se pone en movimiento rápido. Acepta las sincronías y oportunidades inesperadas.',
-    future: 'Un giro sumamente favorable destraba lo que parecía estancado y renueva tu suerte.',
-    productId: 'pla-01'
+    productId: 'pla-01',
+    interpretations: {
+      general: {
+        keywords: 'Destino • Giro Favorable • Nuevo Ciclo',
+        past: 'Atravesaste altibajos y cambios inesperados que te enseñaron a fluir sin aferrarte.',
+        present: 'La energía cósmica acelera su paso. Prepárate para cambios positivos y golpes de suerte sincrónicos.',
+        future: 'Un giro sumamente afortunado destraba lo que parecía detenido y abre una etapa dorada.'
+      },
+      trabajo: {
+        keywords: 'Golpe de Suerte • Oportunidades • Dinamismo Económico',
+        past: 'Superaste rachas de incertidumbre o estancamiento económico que templaron tu perseverancia.',
+        present: 'La rueda gira a tu favor: se reactivan llamados, ventas, pagos pendientes o propuestas sorpresivas.',
+        future: 'Salto cuántico en tus finanzas; oportunidad dorada de inversión, nuevo empleo o contrato lucrativo.'
+      },
+      amor: {
+        keywords: 'Sincronías • Encuentro Fortuito • Giro Sentimental',
+        past: 'Altibajos emocionales o idas y vueltas que concluyen un ciclo kármico de aprendizaje.',
+        present: 'El destino interviene: encuentros casuales, conversaciones que cambian el panorama o sorpresas gratas.',
+        future: 'Un cambio muy afortunado en tu vida afectiva; renovación y un aire fresco y esperanzador.'
+      }
+    }
   },
   {
     roman: 'XIV',
     name: 'La Templanza',
     symbol: '🏺',
-    keywords: 'Alquimia • Equilibrio • Sanación',
-    past: 'Tras días de intensidad emocional, tu espíritu buscó recuperar su centro y armonía.',
-    present: 'Evita los extremos. La paciencia y la limpieza energética están integrando tus emociones.',
-    future: 'Llega una etapa de alivio, acuerdos pacíficos y bienestar integral para tu mente y cuerpo.',
-    productId: 'cri-01'
+    productId: 'cri-01',
+    interpretations: {
+      general: {
+        keywords: 'Alquimia • Equilibrio • Sanación',
+        past: 'Tras momentos intensos o desgastantes, tu espíritu buscó pacificar la mente y sanar su energía.',
+        present: 'Evita los extremos. La paciencia y la mesura están integrando tus emociones en perfecta armonía.',
+        future: 'Serenidad duradera, acuerdos pacíficos y bienestar integral en tu cuerpo, mente y espíritu.'
+      },
+      trabajo: {
+        keywords: 'Negociación • Flujo Constante • Estabilidad Laboral',
+        past: 'Equilibraste múltiples exigencias laborales manteniendo la calma bajo presión.',
+        present: 'Excelente momento para negociar, mediar en el equipo y balancear ingresos y egresos con prudencia.',
+        future: 'Estabilidad laboral impecable, acuerdos de beneficio mutuo y un flujo de dinero constante y fluido.'
+      },
+      amor: {
+        keywords: 'Paz Afectiva • Diálogo Sereno • Ternura',
+        past: 'Superaste roces o tensiones aprendiendo a escuchar con empatía y bajar las defensas.',
+        present: 'Paciencia, diálogo sincero y sanación mutua. La energía fluye con suavidad y comprensión.',
+        future: 'Convivencia pacífica, relación equilibrada sin desgastes y profunda reciprocidad afectiva.'
+      }
+    }
   },
   {
     roman: 'XVII',
     name: 'La Estrella',
     symbol: '✨',
-    keywords: 'Esperanza • Renovación • Guía Celestial',
-    past: 'Superaste una tormenta importante manteniendo viva tu fe y tu sensibilidad.',
-    present: 'Estás bajo una protección luminosa. Limpia tu aura y confía en que estás en el camino correcto.',
-    future: 'Tus sueños más nobles encuentran cauce; llega inspiración, alivio y bendiciones a tu hogar.',
-    productId: 'vel-01'
+    productId: 'vel-01',
+    interpretations: {
+      general: {
+        keywords: 'Esperanza • Renovación • Guía Celestial',
+        past: 'Superaste una tormenta importante manteniendo viva tu fe, tu nobleza y tu sensibilidad.',
+        present: 'Estás bajo una protección celestial manifiesta. Limpia tu aura y confía en tu camino.',
+        future: 'Tus anhelos más nobles encuentran cauce; llegan bendiciones, claridad de propósito e inspiración.'
+      },
+      trabajo: {
+        keywords: 'Éxito Brillante • Visión Creativa • Crecimiento',
+        past: 'Persististe con vocación incluso cuando las recompensas económicas tardaban en manifestarse.',
+        present: 'Se encienden nuevas ideas, propuestas creativas y puertas abiertas hacia el progreso laboral.',
+        future: 'Éxito profesional brillante; reconocimiento público, proyectos prósperos y tranquilidad financiera.'
+      },
+      amor: {
+        keywords: 'Ilusión Renovada • Transparencia • Amor Verdadero',
+        past: 'Sanaste desilusiones pasadas y recuperaste la ilusión de creer en el amor auténtico.',
+        present: 'Ilusión renovada y transparencia. Tus sentimientos son puros y atraen bendiciones al corazón.',
+        future: 'Vínculo luminoso, comunicación fluida y un futuro sentimental lleno de esperanza y ternura compartida.'
+      }
+    }
   },
   {
     roman: 'XVIII',
     name: 'La Luna',
     symbol: '🐺',
-    keywords: 'Sueños • Inconsciente • Limpieza de Sombras',
-    past: 'Ciertas dudas, ilusiones o energías densas del entorno nublaron tu claridad recientemente.',
-    present: 'No temas mirar tus emociones profundas; usa obsidiana y plata para cortar confusiones y envidias.',
-    future: 'La niebla se disipa por completo y tu intuición sale fortalecida al amanecer.',
-    productId: 'amb-02'
+    productId: 'amb-02',
+    interpretations: {
+      general: {
+        keywords: 'Sueños • Inconsciente • Limpieza de Sombras',
+        past: 'Ciertas dudas, ilusiones o energías densas del entorno nublaron tu claridad recientemente.',
+        present: 'No temas mirar tus emociones profundas; usa obsidiana y plata para cortar confusiones y envidias.',
+        future: 'La niebla se disipa por completo; la verdad sale a la luz y recuperas tu serenidad y agudeza.'
+      },
+      trabajo: {
+        keywords: 'Atención a la Letra Chica • Claridad • Protección',
+        past: 'Dudas laborales, promesas que no se cumplieron o ambientes de trabajo con energías pesadas.',
+        present: 'Atención al detalle: no firmes acuerdos a ciegas ni confíes en promesas de dinero fácil. Resguarda tus ideas.',
+        future: 'Se desenmascaran confusiones o engaños laborales; encuentras el camino claro y seguro para progresar.'
+      },
+      amor: {
+        keywords: 'Superar Inseguridades • Verdad Emocional • Claridad',
+        past: 'Temores o malentendidos que generaron inseguridades y celos en tu mundo emocional.',
+        present: 'Distingue entre tus intuiciones reales y los miedos imaginarios. Habla claro para despejar dudas.',
+        future: 'Las sombras se aclaran, se revela la verdad de los sentimientos y renace la paz en el vínculo.'
+      }
+    }
   },
   {
     roman: 'XIX',
     name: 'El Sol',
     symbol: '☀️',
-    keywords: 'Éxito • Claridad • Plenitud Vital',
-    past: 'Tu honestidad y esfuerzo constante prepararon el terreno para este momento de luz.',
-    present: 'Claridad absoluta, vitalidad y alegría. Todo sale a la luz de manera favorable para ti.',
-    future: 'Triunfo rotundo en tu consulta, calidez afectiva y prosperidad compartida.',
-    productId: 'vel-02'
+    productId: 'vel-02',
+    interpretations: {
+      general: {
+        keywords: 'Éxito • Claridad • Plenitud Vital',
+        past: 'Tu honestidad y esfuerzo constante prepararon el terreno para este ciclo de luz.',
+        present: 'Claridad absoluta, vitalidad y alegría. Todo sale a la luz de manera favorable para ti.',
+        future: 'Triunfo rotundo en tu consulta, calidez y prosperidad compartida.'
+      },
+      trabajo: {
+        keywords: 'Victoria Laboral • Rentabilidad • Alto Rendimiento',
+        past: 'Dedicación constante y transparencia que demostraron tu talento y confiabilidad profesional.',
+        present: 'Éxito, visibilidad y liderazgo. Es momento de brillar, presentar proyectos y cobrar lo justo.',
+        future: 'Crecimiento financiero contundente, rentabilidad alta en tus negocios y victoria laboral total.'
+      },
+      amor: {
+        keywords: 'Dicha Compartida • Pasión Noble • Compromiso',
+        past: 'Aprendiste a amarte y valorarte con luz propia antes de compartir tu vida con alguien más.',
+        present: 'Felicidad compartida, calidez, pasión noble y armonía total en tus relaciones afectivas.',
+        future: 'Compromiso dichoso, celebración en pareja, planes de vida juntos y bienestar familiar pleno.'
+      }
+    }
   }
 ];
 
@@ -865,6 +1025,19 @@ function initTarotReadingRoom() {
 
   tarotDeckHasBeenShuffled = false;
   shuffleAndResetTarot(false);
+
+  // Re-renderizar significados si el consultante cambia de área
+  const topicSelect = document.getElementById('tarotSpreadTopic');
+  if (topicSelect) {
+    topicSelect.addEventListener('change', () => {
+      if (tarotSpreadState.selectedCards.length > 0) {
+        renderTarotSpreadSlots();
+        if (tarotSpreadState.selectedCards.length === 3) {
+          renderTarotSynthesis();
+        }
+      }
+    });
+  }
 
   const shuffleBtn = document.getElementById('shuffleDeckBtn');
 
@@ -1181,12 +1354,39 @@ function renderTarotFan(justShuffled = false) {
   });
 }
 
+function getActiveTarotTopicCategory() {
+  const topicEl = document.getElementById('tarotSpreadTopic');
+  const val = (topicEl ? topicEl.value : '').toLowerCase();
+  if (val.includes('trabajo') || val.includes('abundancia') || val.includes('proyecto')) {
+    return 'trabajo';
+  }
+  if (val.includes('amor') || val.includes('vínculo') || val.includes('pareja')) {
+    return 'amor';
+  }
+  return 'general';
+}
+
+function getCardInterpretation(card, category) {
+  if (!card) return null;
+  if (card.interpretations) {
+    return card.interpretations[category] || card.interpretations.general;
+  }
+  return {
+    keywords: card.keywords || '',
+    past: card.past || '',
+    present: card.present || '',
+    future: card.future || ''
+  };
+}
+
 function renderTarotSpreadSlots() {
   const placeholders = [
     'Elige tu 1ª carta arriba (Pasado / Raíz)',
     'Elige tu 2ª carta arriba (Presente)',
     'Elige tu 3ª carta arriba (Futuro / Consejo)'
   ];
+
+  const category = getActiveTarotTopicCategory();
 
   for (let i = 0; i < 3; i++) {
     const slotEl = document.getElementById(`spreadSlot${i}`);
@@ -1196,13 +1396,16 @@ function renderTarotSpreadSlots() {
       slotEl.className = 'spread-slot__card';
       slotEl.innerHTML = `<span class="slot-placeholder">${placeholders[i]}</span>`;
     } else {
-      const positionMeaning = i === 0 ? card.past : i === 1 ? card.present : card.future;
+      const interp = getCardInterpretation(card, category);
+      const positionMeaning = i === 0 ? interp.past : i === 1 ? interp.present : interp.future;
+      const keywords = interp.keywords || card.keywords || '';
+
       slotEl.className = 'spread-slot__card revealed';
       slotEl.innerHTML = `
         <span class="revealed-arcana__symbol">${card.symbol}</span>
         <span class="revealed-arcana__roman">ARCANO ${card.roman}</span>
         <strong class="revealed-arcana__name">${card.name}</strong>
-        <span class="revealed-arcana__keywords">${card.keywords}</span>
+        <span class="revealed-arcana__keywords">${keywords}</span>
         <p class="revealed-arcana__meaning">${positionMeaning}</p>
       `;
     }
@@ -1218,7 +1421,17 @@ function renderTarotSynthesis() {
   const querent = document.getElementById('tarotQuerentName').value.trim() || 'Alma Luminosa';
   const topic = document.getElementById('tarotSpreadTopic').value;
   const question = document.getElementById('tarotQuerentQuestion').value.trim();
+  const category = getActiveTarotTopicCategory();
   const recommendedProduct = PRODUCTS.find((p) => p.id === c3.productId) || PRODUCTS[0];
+
+  let thematicNarrative = '';
+  if (category === 'trabajo') {
+    thematicNarrative = `Tus arcanos revelan que en tus proyectos y finanzas vienes de <strong>${c1.name} (${c1.roman})</strong> como punto de partida. Hoy tu presente laboral y económico te exige enfocar tu energía con <strong>${c2.name} (${c2.roman})</strong>, mientras que <strong>${c3.name} (${c3.roman})</strong> decreta el consejo y desenlace para tu prosperidad y crecimiento material.`;
+  } else if (category === 'amor') {
+    thematicNarrative = `En tus relaciones y mundo emocional, tu camino viene marcado por <strong>${c1.name} (${c1.roman})</strong> como origen. Hoy tu corazón y tus vínculos se enfrentan al aprendizaje de <strong>${c2.name} (${c2.roman})</strong>, mientras que <strong>${c3.name} (${c3.roman})</strong> ilumina tu porvenir sentimental y consejo para el amor correspondido.`;
+  } else {
+    thematicNarrative = `Tu camino de vida viene marcado por la energía de <strong>${c1.name} (${c1.roman})</strong> en el pasado, invitándote a honrar lo aprendido. Hoy, en tu presente, <strong>${c2.name} (${c2.roman})</strong> te señala el punto exacto donde debes enfocar tu fuerza espiritual, mientras que <strong>${c3.name} (${c3.roman})</strong> ilumina tu desenlace y consejo evolutivo.`;
+  }
 
   synthesisBody.innerHTML = `
     <p style="margin-bottom: 0.75rem;">
@@ -1226,7 +1439,7 @@ function renderTarotSynthesis() {
       ${question ? `<br><span style="color: var(--gold-light);">Tu consulta: "${question}"</span>` : ''}
     </p>
     <p style="margin-bottom: 0.75rem;">
-      Tu camino viene marcado por la energía de <strong>${c1.name} (${c1.roman})</strong> en el pasado, invitándote a honrar lo aprendido. Hoy, en tu presente, <strong>${c2.name} (${c2.roman})</strong> te señala el punto exacto donde debes enfocar tu fuerza espiritual, mientras que <strong>${c3.name} (${c3.roman})</strong> ilumina tu desenlace y consejo evolutivo.
+      ${thematicNarrative}
     </p>
     <div style="background: rgba(229,184,75,0.1); border: 1px dashed var(--gold-primary); padding: 0.9rem 1.1rem; border-radius: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
       <div>
@@ -1240,8 +1453,6 @@ function renderTarotSynthesis() {
   `;
 
   synthesisBox.hidden = false;
-
-  // Sin pop-up automático: la persona decide si quedarse con la lectura express o continuar
 }
 
 let activeVideoRoomUrl = '';
