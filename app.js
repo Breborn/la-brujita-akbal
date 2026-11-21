@@ -900,9 +900,12 @@ function initTarotReadingRoom() {
     showToast('✨ Altar reiniciado. Puedes barajar el mazo para tu nueva tirada.');
   });
 
-  document.getElementById('sendReadingToVeronicaBtn').addEventListener('click', () => {
-    sendTarotReadingWhatsApp();
-  });
+  const sendReadingBtn = document.getElementById('sendReadingToVeronicaBtn');
+  if (sendReadingBtn) {
+    sendReadingBtn.addEventListener('click', () => {
+      sendTarotReadingWhatsApp();
+    });
+  }
 
 
 
