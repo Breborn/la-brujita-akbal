@@ -1080,14 +1080,22 @@ function openTarotFollowupPopup(c1, c2, c3) {
 function openEmbeddedVideoCall() {
   const panel = document.getElementById('videoCallPanel');
   const frameWrap = document.getElementById('videoCallFrameWrap');
+  const externalBtn = document.getElementById('openExternalVideoRoomBtn');
   const querent = (document.getElementById('tarotQuerentName').value.trim() || 'Consultante')
     .replace(/[^a-zA-Z0-9]/g, '');
   const roomCode = `LaBrujitaAkbal-Tarot-${querent || 'Altar'}`;
-  activeVideoRoomUrl = `https://meet.jit.si/${roomCode}`;
+  
+  // Servidor Jitsi comunitario abierto (meet.guifi.net) sin banner de pago de 8x8 JaaS:
+  activeVideoRoomUrl = `https://meet.guifi.net/${roomCode}`;
+  const iframeSrc = `${activeVideoRoomUrl}#config.prejoinPageEnabled=false&config.startWithAudioMuted=false&config.startWithVideoMuted=false`;
+
+  if (externalBtn) {
+    externalBtn.href = activeVideoRoomUrl;
+  }
 
   frameWrap.innerHTML = `
     <iframe
-      src="${activeVideoRoomUrl}#config.prejoinPageEnabled=false&config.startWithAudioMuted=false&config.startWithVideoMuted=false"
+      src="${iframeSrc}"
       allow="camera; microphone; fullscreen; display-capture; autoplay"
       title="Sala de Videollamada de Tarot con Verónica - La Brujita Akbal"
     ></iframe>
