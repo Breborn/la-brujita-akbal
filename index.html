@@ -685,8 +685,12 @@
                 </button>
               </div>
             </div>
+            <div class="video-call-status-banner">
+              <span class="pulse-dot"></span>
+              <span>🔔 <strong>Aviso enviado a Verónica:</strong> Verónica ha recibido la notificación por WhatsApp en su teléfono y se unirá a esta sala en unos instantes.</span>
+            </div>
             <p class="video-call-panel__note">
-              ✨ Permite el acceso a tu cámara y micrófono cuando el navegador lo solicite. Haz clic en <strong>"Avisar a Verónica por WhatsApp"</strong> para enviarle el enlace directo a esta misma sala y tus 3 cartas reveladas.
+              ✨ Permite el acceso a tu cámara y micrófono cuando el navegador lo solicite. Si necesitas reenviarle el enlace o comprobante a Verónica, pulsa el botón dorado arriba.
             </p>
             <div class="video-call-frame-wrap" id="videoCallFrameWrap"></div>
           </div>
@@ -864,24 +868,25 @@
     </div>
   </div>
 
-  <!-- MODAL DE COBRO DIRECTO POR TRANSFERENCIA PARA VIDEOLLAMADA -->
+  <!-- POP-UP DE DIRECCIONAMIENTO A LECTURA DETALLADA CON VERÓNICA -->
   <div class="modal-backdrop" id="videoCallPaymentModal" hidden aria-hidden="true">
     <div class="modal tarot-popup-modal payment-direct-modal" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle">
-      <button class="modal__close" id="closePaymentModalBtn" aria-label="Cerrar ventana de pago">✕</button>
+      <button class="modal__close" id="closePaymentModalBtn" aria-label="Cerrar ventana">✕</button>
       <div class="tarot-popup-content">
         <div class="ornate-badge">
           <span class="eight-star">✴</span>
-          <span>LECTURA COMPLETA EN VIVO • TRANSFERENCIA DIRECTA</span>
+          <span>LECTURA EXPRESS COMPLETADA (GRATIS)</span>
           <span class="eight-star">✴</span>
         </div>
         <h3 id="paymentModalTitle" class="tarot-popup__title">
-          ✨ Sesión de Tarot con Verónica en Vivo ✨
+          ✨ Continúa con tu Lectura Detallada con Verónica ✨
         </h3>
-        <p class="tarot-popup__desc" style="max-width: 480px;">
-          La tirada express en la web es gratuita. Esta videollamada corresponde a una <strong>Lectura Completa y Personalizada (45 min)</strong> cara a cara con Verónica (+ Zyra 🐾).
+        <p class="tarot-popup__cards" id="paymentModalCardsSummary" style="font-weight: 700; color: var(--gold-light); margin-bottom: 0.2rem;"></p>
+        <p class="tarot-popup__desc" style="max-width: 500px;">
+          Tu tirada express te entrega una primera orientación. Para profundizar en tus preguntas libres, abrir el panorama completo de tus energías y conectar en vivo cara a cara por videollamada (45 min) con <strong>Verónica (+ Zyra 🐾)</strong>:
         </p>
 
-        <!-- Tarjeta de Cobro / Datos Bancarios -->
+        <!-- Tarjeta de Cobro / Transferencia Directa -->
         <div class="bank-transfer-card">
           <div class="bank-transfer-card__header">
             <div>
@@ -925,19 +930,16 @@
 
         <div class="payment-direct-notice">
           <p>
-            💬 <strong>Gestión directa en la llamada:</strong> Transfiere directo a Verónica sin intermediarios ni comisiones de plataformas. Al ingresar a la sala, Verónica validará tu comprobante contigo para iniciar tu lectura completa.
+            💬 <strong>Aviso directo a Verónica:</strong> Al presionar el botón de abajo, se abrirá WhatsApp para enviarle tu comprobante y las cartas de tu tirada a Verónica. A ella le sonará la alerta en su celular y se conectará contigo a la sala en la web.
           </p>
         </div>
 
         <div class="tarot-popup__actions" style="width: 100%;">
           <button class="btn btn--gold btn--full" id="confirmPaymentAndOpenVideoWhatsappBtn" type="button">
-            <span>📲 Enviar Comprobante por WhatsApp y Abrir Sala</span>
+            <span>📲 Enviar Comprobante por WhatsApp y Abrir Videollamada</span>
           </button>
-          <button class="btn btn--outline btn--full" id="confirmPaymentAndOpenVideoDirectBtn" type="button">
-            <span>📹 Ya transferí • Entrar a la Sala de Videollamada</span>
-          </button>
-          <button class="link-btn" id="dismissPaymentModalBtn" type="button" style="margin-top: 0.35rem;">
-            Volver a la mesa de cartas
+          <button class="link-btn" id="dismissPaymentModalBtn" type="button" style="margin-top: 0.5rem;">
+            Quedarme leyendo la interpretación express en la mesa ritual
           </button>
         </div>
       </div>

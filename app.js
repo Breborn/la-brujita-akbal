@@ -1082,10 +1082,10 @@ function renderTarotSynthesis() {
 
   synthesisBox.hidden = false;
 
-  // Mostrar Pop-up automático al finalizar la lectura express
+  // Saltar de inmediato el pop-up de direccionamiento a lectura detallada con Verónica
   setTimeout(() => {
-    openTarotFollowupPopup(c1, c2, c3);
-  }, 650);
+    openPaymentModal(c1, c2, c3);
+  }, 500);
 }
 
 let activeVideoRoomUrl = '';
@@ -1106,9 +1106,9 @@ function openEmbeddedVideoCall() {
     .replace(/[^a-zA-Z0-9]/g, '');
   const roomCode = `LaBrujitaAkbal-Tarot-${querent || 'Altar'}`;
   
-  // Servidor Jitsi comunitario abierto (meet.guifi.net) sin banner de pago de 8x8 JaaS:
-  activeVideoRoomUrl = `https://meet.guifi.net/${roomCode}`;
-  const iframeSrc = `${activeVideoRoomUrl}#config.prejoinPageEnabled=false&config.startWithAudioMuted=false&config.startWithVideoMuted=false`;
+  // Servidor Jitsi abierto en Español (fairmeeting.net) sin catalán ni paywall de 8x8:
+  activeVideoRoomUrl = `https://fairmeeting.net/${roomCode}`;
+  const iframeSrc = `${activeVideoRoomUrl}#config.defaultLanguage="es"&interfaceConfig.DEFAULT_LANG="es"&config.prejoinPageEnabled=false&config.prejoinConfig.enabled=false&config.startWithAudioMuted=false&config.startWithVideoMuted=false`;
 
   if (externalBtn) {
     externalBtn.href = activeVideoRoomUrl;
@@ -1175,9 +1175,19 @@ function sendTarotReadingWhatsApp() {
 }
 
 // GESTIÓN DE COBRO DIRECTO POR TRANSFERENCIA PARA VIDEOLLAMADA
-function openPaymentModal() {
+function openPaymentModal(c1, c2, c3) {
   const modal = document.getElementById('videoCallPaymentModal');
   if (!modal) return;
+  
+  if (!c1 && tarotSpreadState.selectedCards.length === 3) {
+    [c1, c2, c3] = tarotSpreadState.selectedCards;
+  }
+  
+  const summaryEl = document.getElementById('paymentModalCardsSummary');
+  if (summaryEl && c1 && c2 && c3) {
+    summaryEl.textContent = `🃏 Tus 3 Arcanos revelados: I. ${c1.name} • II. ${c2.name} • III. ${c3.name}`;
+  }
+  
   modal.hidden = false;
   modal.setAttribute('aria-hidden', 'false');
 }
