@@ -732,9 +732,16 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   });
 
-  // Menú móvil
+  // Menú móvil y cierre automático al navegar
+  const mainNav = document.getElementById('mainNav');
   document.getElementById('mobileMenuBtn').addEventListener('click', () => {
-    document.getElementById('mainNav').classList.toggle('open');
+    mainNav.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.nav__link').forEach((link) => {
+    link.addEventListener('click', () => {
+      mainNav?.classList.remove('open');
+    });
   });
 });
 
