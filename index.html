@@ -657,8 +657,8 @@
               <button class="btn btn--gold" id="sendReadingToVeronicaBtn">
                 <span>💬 Para continuar con lectura más detallada, pincha aquí (WhatsApp)</span>
               </button>
-              <button class="btn btn--outline" id="openLiveVideoBtn">
-                <span>📹 Conectar por Videollamada en la Página</span>
+              <button class="btn btn--gold" id="openLiveVideoBtn">
+                <span>📹 Conectar a Lectura Completa en Vivo ($25.000)</span>
               </button>
               <button class="btn btn--outline" id="resetReadingBtn">
                 <span>🔄 Realizar Nueva Tirada</span>
@@ -851,13 +851,93 @@
 
         <div class="tarot-popup__actions">
           <button class="btn btn--gold btn--full tarot-popup__main-cta" id="popupStartVideoCallBtn">
-            <span>📹 Conectar por Videollamada Ahora (Gratis / En Vivo)</span>
+            <span>📹 Pasar a Lectura Completa por Videollamada ($25.000)</span>
           </button>
           <button class="btn btn--outline btn--full" id="popupContinueWhatsappBtn">
-            <span>💬 Agendar Lectura Detallada por WhatsApp</span>
+            <span>💬 Enviar mi Tirada Express a Verónica por WhatsApp (Gratis)</span>
           </button>
           <button class="link-btn" id="popupDismissBtn" style="margin-top: 0.4rem;">
             Quedarme leyendo el resumen en la mesa ritual
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE COBRO DIRECTO POR TRANSFERENCIA PARA VIDEOLLAMADA -->
+  <div class="modal-backdrop" id="videoCallPaymentModal" hidden aria-hidden="true">
+    <div class="modal tarot-popup-modal payment-direct-modal" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle">
+      <button class="modal__close" id="closePaymentModalBtn" aria-label="Cerrar ventana de pago">✕</button>
+      <div class="tarot-popup-content">
+        <div class="ornate-badge">
+          <span class="eight-star">✴</span>
+          <span>LECTURA COMPLETA EN VIVO • TRANSFERENCIA DIRECTA</span>
+          <span class="eight-star">✴</span>
+        </div>
+        <h3 id="paymentModalTitle" class="tarot-popup__title">
+          ✨ Sesión de Tarot con Verónica en Vivo ✨
+        </h3>
+        <p class="tarot-popup__desc" style="max-width: 480px;">
+          La tirada express en la web es gratuita. Esta videollamada corresponde a una <strong>Lectura Completa y Personalizada (45 min)</strong> cara a cara con Verónica (+ Zyra 🐾).
+        </p>
+
+        <!-- Tarjeta de Cobro / Datos Bancarios -->
+        <div class="bank-transfer-card">
+          <div class="bank-transfer-card__header">
+            <div>
+              <span class="bank-tag">PAGO DIRECTO A VERÓNICA • SIN COMISIONES</span>
+              <h4 class="bank-service-title">Sesión Tarot Terapéutico en Vivo (45 min)</h4>
+            </div>
+            <div class="bank-price">$25.000 <small>CLP</small></div>
+          </div>
+
+          <div class="bank-details-grid">
+            <div class="bank-detail-item">
+              <span class="bank-label">Titular:</span>
+              <strong class="bank-val" id="bankTitular">Verónica Akbal</strong>
+            </div>
+            <div class="bank-detail-item">
+              <span class="bank-label">RUT:</span>
+              <strong class="bank-val" id="bankRut">16.892.451-K</strong>
+            </div>
+            <div class="bank-detail-item">
+              <span class="bank-label">Banco:</span>
+              <strong class="bank-val" id="bankNombre">BancoEstado</strong>
+            </div>
+            <div class="bank-detail-item">
+              <span class="bank-label">Tipo de Cuenta:</span>
+              <strong class="bank-val" id="bankTipo">Cuenta RUT / Vista</strong>
+            </div>
+            <div class="bank-detail-item">
+              <span class="bank-label">N° de Cuenta:</span>
+              <strong class="bank-val" id="bankNumero">16892451</strong>
+            </div>
+            <div class="bank-detail-item">
+              <span class="bank-label">Email Comprobante:</span>
+              <strong class="bank-val" id="bankEmail">pagos@labrujitaakbal.cl</strong>
+            </div>
+          </div>
+
+          <button class="btn btn--outline btn--sm copy-bank-btn" id="copyBankDataBtn" type="button">
+            <span>📋 Copiar Datos de Transferencia</span>
+          </button>
+        </div>
+
+        <div class="payment-direct-notice">
+          <p>
+            💬 <strong>Gestión directa en la llamada:</strong> Transfiere directo a Verónica sin intermediarios ni comisiones de plataformas. Al ingresar a la sala, Verónica validará tu comprobante contigo para iniciar tu lectura completa.
+          </p>
+        </div>
+
+        <div class="tarot-popup__actions" style="width: 100%;">
+          <button class="btn btn--gold btn--full" id="confirmPaymentAndOpenVideoWhatsappBtn" type="button">
+            <span>📲 Enviar Comprobante por WhatsApp y Abrir Sala</span>
+          </button>
+          <button class="btn btn--outline btn--full" id="confirmPaymentAndOpenVideoDirectBtn" type="button">
+            <span>📹 Ya transferí • Entrar a la Sala de Videollamada</span>
+          </button>
+          <button class="link-btn" id="dismissPaymentModalBtn" type="button" style="margin-top: 0.35rem;">
+            Volver a la mesa de cartas
           </button>
         </div>
       </div>

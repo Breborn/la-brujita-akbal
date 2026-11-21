@@ -902,18 +902,32 @@ function initTarotReadingRoom() {
 
   document.getElementById('popupStartVideoCallBtn').addEventListener('click', () => {
     closePopup();
-    openEmbeddedVideoCall();
+    openPaymentModal();
   });
 
   document.getElementById('openLiveVideoBtn').addEventListener('click', () => {
-    openEmbeddedVideoCall();
+    openPaymentModal();
   });
 
   document.getElementById('closeVideoRoomBtn').addEventListener('click', () => {
     closeEmbeddedVideoCall();
   });
 
-  document.getElementById('shareVideoLinkWhatsappBtn').addEventListener('click', () => {
+
+  // Eventos del Modal de Cobro Directo por Transferencia
+  const paymentModal = document.getElementById('videoCallPaymentModal');
+  if (paymentModal) {
+    document.getElementById('closePaymentModalBtn')?.addEventListener('click', closePaymentModal);
+    document.getElementById('dismissPaymentModalBtn')?.addEventListener('click', closePaymentModal);
+    paymentModal.addEventListener('click', (e) => {
+      if (e.target === paymentModal) closePaymentModal();
+    });
+    document.getElementById('copyBankDataBtn')?.addEventListener('click', copyBankTransferData);
+    document.getElementById('confirmPaymentAndOpenVideoWhatsappBtn')?.addEventListener('click', notifyPaymentAndJoinWhatsApp);
+    document.getElementById('confirmPaymentAndOpenVideoDirectBtn')?.addEventListener('click', confirmDirectPaymentAndJoin);
+  }
+
+    document.getElementById('shareVideoLinkWhatsappBtn').addEventListener('click', () => {
     notifyVeronicaVideoRoomWhatsApp();
   });
 
@@ -1151,4 +1165,77 @@ function sendTarotReadingWhatsApp() {
   msg += `Me encantaría profundizar esta lectura contigo en una sesión personalizada. ¿Me cuentas cómo agendar? ✨🌙`;
 
   window.open(`https://wa.me/${rawPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+}
+
+// GESTIÓN DE COBRO DIRECTO POR TRANSFERENCIA PARA VIDEOLLAMADA
+function openPaymentModal() {
+  const modal = document.getElementById('videoCallPaymentModal');
+  if (!modal) return;
+  modal.hidden = false;
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+function closePaymentModal() {
+  const modal = document.getElementById('videoCallPaymentModal');
+  if (!modal) return;
+  modal.hidden = true;
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+function copyBankTransferData() {
+  const bankText = `DATOS DE TRANSFERENCIA — LA BRUJITA AKBAL
+• Titular: Verónica Akbal
+• RUT: 16.892.451-K
+• Banco: BancoEstado
+• Tipo: Cuenta RUT / Vista
+• N° Cuenta: 16892451
+• Email: pagos@labrujitaakbal.cl
+• Monto: $25.000 CLP (Sesión Tarot Terapéutico en Vivo 45 min)`;
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(bankText).then(() => {
+      showToast('📋 ¡Datos bancarios copiados al portapapeles!');
+    }).catch(() => {
+      fallbackCopyText(bankText);
+    });
+  } else {
+    fallbackCopyText(bankText);
+  }
+}
+
+function fallbackCopyText(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  showToast('📋 ¡Datos bancarios copiados al portapapeles!');
+}
+
+function notifyPaymentAndJoinWhatsApp() {
+  const [c1, c2, c3] = tarotSpreadState.selectedCards;
+  const querent = document.getElementById('tarotQuerentName').value.trim() || 'Consultante de La Brujita Akbal';
+  const topic = document.getElementById('tarotSpreadTopic').value;
+  const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56912345678';
+
+  let msg = `✨🔮 ¡Hola Verónica! Soy *${querent}* y acabo de transferir los *$25.000* para mi *Sesión de Tarot en Vivo (45 min)* en La Brujita Akbal.\n\n`;
+  msg += `📸 *Te adjunto mi comprobante de transferencia por aquí.*\n`;
+  msg += `✴ *Tema de consulta:* ${topic}\n`;
+  if (c1 && c2 && c3) {
+    msg += `🃏 *Mis 3 cartas en la mesa ritual:* ${c1.name} • ${c2.name} • ${c3.name}\n`;
+  }
+  msg += `\n👉 *Ya ingresé a la sala esperándote aquí:* ${activeVideoRoomUrl || 'https://meet.guifi.net/LaBrujitaAkbal-Tarot-' + encodeURIComponent(querent)}\n\n¡Quedo atento/a para comenzar en la sala! ✨🌙`;
+
+  closePaymentModal();
+  openEmbeddedVideoCall();
+  window.open(`https://wa.me/${rawPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+}
+
+function confirmDirectPaymentAndJoin() {
+  closePaymentModal();
+  openEmbeddedVideoCall();
+  showToast('📹 Conectando a la Sala... Verónica confirmará tu comprobante contigo en la llamada.');
 }
