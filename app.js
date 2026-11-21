@@ -694,7 +694,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('🔮 Primero agrega al menos un producto a tu pedido');
       return;
     }
-    const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56990788364';
+    const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56956823670';
     const text = encodeURIComponent(buildOrderMessage());
     window.open(`https://wa.me/${rawPhone}?text=${text}`, '_blank', 'noopener,noreferrer');
   });
@@ -721,7 +721,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Consulta personalizada por WhatsApp
   document.getElementById('sendCustomWhatsappBtn').addEventListener('click', () => {
-    const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56990788364';
+    const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56956823670';
     const customQuestion =
       document.getElementById('customQuestionInput').value.trim() ||
       'Hola Verónica ✨ Vi tu página web de La Brujita Akbal y me gustaría hacerte una consulta.';
@@ -924,7 +924,7 @@ function initTarotReadingRoom() {
       const querent = document.getElementById('tarotQuerentName').value.trim() || 'Consultante de La Brujita Akbal';
       const topic = document.getElementById('tarotSpreadTopic').value;
       const question = document.getElementById('tarotQuerentQuestion').value.trim();
-      const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56990788364';
+      const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56956823670';
 
       let msg = `✨ ¡Hola Verónica! 🌙🔮\nSoy *${querent}* y quiero agendar una *${sessionName}* desde la página de *La Brujita Akbal*.\n\n`;
       msg += `✴ *Tema de consulta:* ${topic}\n`;
@@ -1109,7 +1109,7 @@ function notifyVeronicaVideoRoomWhatsApp() {
   const [c1, c2, c3] = tarotSpreadState.selectedCards;
   const querent = document.getElementById('tarotQuerentName').value.trim() || 'Consultante de La Brujita Akbal';
   const topic = document.getElementById('tarotSpreadTopic').value;
-  const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56990788364';
+  const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56956823670';
   const safeName = querent.replace(/[^a-zA-Z0-9]/g, '') || 'Altar';
   const directUrl = `https://fairmeeting.net/LaBrujitaAkbal-Tarot-${safeName}#config.prejoinConfig.enabled=false&config.prejoinPageEnabled=false&config.welcomePage.disabled=true&config.deeplinking.disabled=true&config.disableDeepLinking=true&config.defaultLanguage="es"&userInfo.displayName="Verónica"`;
 
@@ -1131,7 +1131,7 @@ function sendTarotReadingWhatsApp() {
   const querent = document.getElementById('tarotQuerentName').value.trim() || 'Consultante de La Brujita Akbal';
   const topic = document.getElementById('tarotSpreadTopic').value;
   const question = document.getElementById('tarotQuerentQuestion').value.trim();
-  const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56990788364';
+  const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56956823670';
 
   let msg = `🃏✨ ¡Hola Verónica! Acabo de realizar mi *Tirada de Tarot en Línea* en *La Brujita Akbal*:\n\n`;
   msg += `👤 *Nombre / Signo:* ${querent}\n`;
@@ -1210,7 +1210,7 @@ function notifyPaymentAndJoinWhatsApp() {
   const [c1, c2, c3] = tarotSpreadState.selectedCards;
   const querent = document.getElementById('tarotQuerentName').value.trim() || 'Consultante de La Brujita Akbal';
   const topic = document.getElementById('tarotSpreadTopic').value;
-  const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56990788364';
+  const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56956823670';
   const safeName = querent.replace(/[^a-zA-Z0-9]/g, '') || 'Altar';
   // Enlace directo con auto-ingreso para Verónica: sin prejoin, sin lobby, sin pedir nombre
   const roomUrl = `https://fairmeeting.net/LaBrujitaAkbal-Tarot-${safeName}#config.prejoinConfig.enabled=false&config.prejoinPageEnabled=false&config.welcomePage.disabled=true&config.deeplinking.disabled=true&config.disableDeepLinking=true&config.defaultLanguage="es"&userInfo.displayName="Verónica"`;
