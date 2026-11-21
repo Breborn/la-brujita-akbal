@@ -1072,16 +1072,17 @@ function openEmbeddedVideoCall() {
   const panel = document.getElementById('videoCallPanel');
   const frameWrap = document.getElementById('videoCallFrameWrap');
   const externalBtn = document.getElementById('openExternalVideoRoomBtn');
-  const querent = (document.getElementById('tarotQuerentName').value.trim() || 'Consultante')
-    .replace(/[^a-zA-Z0-9]/g, '');
+  const rawQuerent = document.getElementById('tarotQuerentName').value.trim() || 'Consultante';
+  const querent = rawQuerent.replace(/[^a-zA-Z0-9]/g, '');
   const roomCode = `LaBrujitaAkbal-Tarot-${querent || 'Altar'}`;
   
-  // Servidor Jitsi abierto en Español (fairmeeting.net) sin catalán ni paywall de 8x8:
+  // Conexión directa automática: sin prejoin, sin lobby, sin pedir nombre, entra de inmediato
   activeVideoRoomUrl = `https://fairmeeting.net/${roomCode}`;
-  const iframeSrc = `${activeVideoRoomUrl}#config.defaultLanguage="es"&interfaceConfig.DEFAULT_LANG="es"&config.prejoinPageEnabled=false&config.prejoinConfig.enabled=false&config.startWithAudioMuted=false&config.startWithVideoMuted=false`;
+  const clientFlags = `#config.prejoinConfig.enabled=false&config.prejoinPageEnabled=false&config.welcomePage.disabled=true&config.deeplinking.disabled=true&config.disableDeepLinking=true&config.defaultLanguage="es"&interfaceConfig.DEFAULT_LANG="es"&userInfo.displayName="${encodeURIComponent(rawQuerent)}"&config.startWithAudioMuted=false&config.startWithVideoMuted=false`;
+  const iframeSrc = `${activeVideoRoomUrl}${clientFlags}`;
 
   if (externalBtn) {
-    externalBtn.href = activeVideoRoomUrl;
+    externalBtn.href = `${activeVideoRoomUrl}#config.prejoinConfig.enabled=false&config.prejoinPageEnabled=false&config.welcomePage.disabled=true&config.deeplinking.disabled=true&config.defaultLanguage="es"&userInfo.displayName="${encodeURIComponent(rawQuerent)}"`;
   }
 
   frameWrap.innerHTML = `
@@ -1110,15 +1111,15 @@ function notifyVeronicaVideoRoomWhatsApp() {
   const topic = document.getElementById('tarotSpreadTopic').value;
   const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56990788364';
   const safeName = querent.replace(/[^a-zA-Z0-9]/g, '') || 'Altar';
-  const directUrl = `https://fairmeeting.net/LaBrujitaAkbal-Tarot-${safeName}#config.deeplinking.disabled=true&config.disableDeepLinking=true`;
+  const directUrl = `https://fairmeeting.net/LaBrujitaAkbal-Tarot-${safeName}#config.prejoinConfig.enabled=false&config.prejoinPageEnabled=false&config.welcomePage.disabled=true&config.deeplinking.disabled=true&config.disableDeepLinking=true&config.defaultLanguage="es"&userInfo.displayName="Verónica"`;
 
   let msg = `📹✨ ¡Hola Verónica! Soy *${querent}* y estoy esperándote en la *Sala de Videollamada de La Brujita Akbal* para continuar con mi lectura detallada.\n\n`;
   msg += `🔮 *Tema:* ${topic}\n`;
   if (c1 && c2 && c3) {
     msg += `🃏 *Mis 3 cartas reveladas:* ${c1.name} • ${c2.name} • ${c3.name}\n`;
   }
-  msg += `\n👉 *Opción 1 (Sala Web):* Entra directo aquí: ${directUrl}\n`;
-  msg += `👉 *Opción 2 (WhatsApp Video):* O si prefieres, ¡iniciemos la videollamada directa por WhatsApp! 📲\n\n¡Te espero! ✨🌙`;
+  msg += `\n👉 *PINCHA AQUÍ PARA ENTRAR A LA SALA (Entra directo sin configurar nada):*\n${directUrl}\n\n`;
+  msg += `📲 *O si prefieres:* ¡Iníciame la videollamada por WhatsApp directamente aquí! ✨🌙`;
 
   window.open(`https://wa.me/${rawPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
 }
@@ -1211,7 +1212,8 @@ function notifyPaymentAndJoinWhatsApp() {
   const topic = document.getElementById('tarotSpreadTopic').value;
   const rawPhone = document.getElementById('whatsappPhoneConfig').value.replace(/\D/g, '') || '56990788364';
   const safeName = querent.replace(/[^a-zA-Z0-9]/g, '') || 'Altar';
-  const roomUrl = `https://fairmeeting.net/LaBrujitaAkbal-Tarot-${safeName}#config.deeplinking.disabled=true&config.disableDeepLinking=true`;
+  // Enlace directo con auto-ingreso para Verónica: sin prejoin, sin lobby, sin pedir nombre
+  const roomUrl = `https://fairmeeting.net/LaBrujitaAkbal-Tarot-${safeName}#config.prejoinConfig.enabled=false&config.prejoinPageEnabled=false&config.welcomePage.disabled=true&config.deeplinking.disabled=true&config.disableDeepLinking=true&config.defaultLanguage="es"&userInfo.displayName="Verónica"`;
 
   let msg = `✨🔮 ¡Hola Verónica! Soy *${querent}* y acabo de transferir los *$25.000* para mi *Sesión de Tarot en Vivo (45 min)* en La Brujita Akbal.\n\n`;
   msg += `📸 *Te adjunto mi comprobante de transferencia por aquí.*\n`;
@@ -1219,8 +1221,8 @@ function notifyPaymentAndJoinWhatsApp() {
   if (c1 && c2 && c3) {
     msg += `🃏 *Mis 3 cartas en la mesa ritual:* ${c1.name} • ${c2.name} • ${c3.name}\n`;
   }
-  msg += `\n👉 *Opción 1 (Sala Web):* Entra directo aquí: ${roomUrl}\n`;
-  msg += `👉 *Opción 2 (WhatsApp Video):* O si prefieres, ¡iniciemos la videollamada directa por WhatsApp aquí mismo! 📲\n\n¡Te espero para comenzar! ✨🌙`;
+  msg += `\n👉 *PINCHA AQUÍ PARA ENTRAR A LA SALA (Entra directo sin configurar nada):*\n${roomUrl}\n\n`;
+  msg += `📲 *O si estás en tu celular y prefieres:* ¡Iníciame la videollamada por WhatsApp directamente aquí! ✨🌙`;
 
   // 1. Abrir WhatsApp inmediatamente en el evento de click (evita bloqueo de popups)
   window.open(`https://wa.me/${rawPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
