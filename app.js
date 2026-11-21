@@ -861,11 +861,10 @@ function initTarotReadingRoom() {
   const fanContainer = document.getElementById('tarotFanContainer');
   if (!fanContainer) return;
 
-  shuffleAndResetTarot();
+  shuffleAndResetTarot(false);
 
   document.getElementById('shuffleDeckBtn').addEventListener('click', () => {
-    shuffleAndResetTarot();
-    showToast('🔀 Verónica y Zyra han barajado las cartas en el altar');
+    shuffleAndResetTarot(true);
   });
 
   document.getElementById('revealAllSpreadBtn').addEventListener('click', () => {
@@ -882,7 +881,7 @@ function initTarotReadingRoom() {
   });
 
   document.getElementById('resetReadingBtn').addEventListener('click', () => {
-    shuffleAndResetTarot();
+    shuffleAndResetTarot(true);
   });
 
   document.getElementById('sendReadingToVeronicaBtn').addEventListener('click', () => {
@@ -942,21 +941,162 @@ function initTarotReadingRoom() {
   });
 }
 
-function shuffleAndResetTarot() {
-  const copy = [...MAJOR_ARCANA_DECK];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
+// --- SÍNTESIS DE SONIDO DE BARAJADO DE CARTAS (Web Audio API nativo) ---
+function playShuffleSound() {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    if (ctx.state === 'suspended') {
+      ctx.resume();
+    }
+    const bursts = 16;
+    for (let i = 0; i < bursts; i++) {
+      const startTime = ctx.currentTime + 0.12 + i * 0.052 + (Math.random() * 0.015);
+      const bufferSize = Math.floor(ctx.sampleRate * 0.038);
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let j = 0; j < bufferSize; j++) {
+        data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (bufferSize * 0.35));
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 1100 + Math.random() * 500;
+      filter.Q.value = 2.2;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.06, startTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.038);
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      noise.start(startTime);
+    }
+  } catch (e) {
+    // Si el navegador bloquea audio, continúa silencioso
   }
-  tarotSpreadState.shuffledDeck = copy.slice(0, 7);
-  tarotSpreadState.selectedCards = [];
-
-  renderTarotFan();
-  renderTarotSpreadSlots();
-  document.getElementById('tarotReadingSynthesis').hidden = true;
 }
 
-function renderTarotFan() {
+// --- ANIMACIÓN FÍSICA Y MÍSTICA DE BARAJADO ---
+let isDeckShuffling = false;
+
+function triggerCardShuffleAnimation(callback) {
+  const fanContainer = document.getElementById('tarotFanContainer');
+  const shuffleBtn = document.getElementById('shuffleDeckBtn');
+  if (!fanContainer) {
+    if (callback) callback();
+    return;
+  }
+
+  const cards = fanContainer.querySelectorAll('.fan-card');
+  if (!cards.length) {
+    if (callback) callback();
+    return;
+  }
+
+  isDeckShuffling = true;
+
+  if (shuffleBtn) {
+    shuffleBtn.disabled = true;
+    shuffleBtn.classList.add('btn--shuffling');
+    shuffleBtn.innerHTML = '<span>⏳ Mezclando los Arcanos...</span>';
+  }
+
+  playShuffleSound();
+
+  // Calcular centro exacto de la mesa ritual
+  const containerRect = fanContainer.getBoundingClientRect();
+  const centerX = containerRect.left + containerRect.width / 2;
+  const centerY = containerRect.top + containerRect.height / 2;
+
+  // Asignar vectores de vuelo a cada carta para formar el mazo y cruzarse
+  cards.forEach((card, i) => {
+    const cardRect = card.getBoundingClientRect();
+    const cardCenterX = cardRect.left + cardRect.width / 2;
+    const cardCenterY = cardRect.top + cardRect.height / 2;
+
+    const dx = centerX - cardCenterX;
+    const dy = centerY - cardCenterY;
+    const side = (i % 2 === 0) ? -1 : 1;
+    const rot = (i - 3) * 3;
+
+    card.style.setProperty('--dx', `${dx}px`);
+    card.style.setProperty('--dy', `${dy}px`);
+    card.style.setProperty('--side', side);
+    card.style.setProperty('--rot', `${rot}deg`);
+    card.style.zIndex = 10 + i;
+
+    card.classList.remove('picked');
+    card.classList.add('shuffling-card');
+  });
+
+  fanContainer.classList.add('shuffling');
+
+  // Limpiar mesa de interpretación durante el barajado
+  document.getElementById('tarotReadingSynthesis').hidden = true;
+  tarotSpreadState.selectedCards = [];
+  renderTarotSpreadSlots();
+
+  const statusPill = document.getElementById('tarotStepStatus');
+  if (statusPill) {
+    statusPill.textContent = '🔀 Verónica y Zyra están barajando los Arcanos sagrados...';
+  }
+
+  setTimeout(() => {
+    fanContainer.classList.remove('shuffling');
+    cards.forEach((card) => {
+      card.classList.remove('shuffling-card');
+      card.style.removeProperty('--dx');
+      card.style.removeProperty('--dy');
+      card.style.removeProperty('--side');
+      card.style.removeProperty('--rot');
+      card.style.removeProperty('z-index');
+    });
+
+    if (shuffleBtn) {
+      shuffleBtn.disabled = false;
+      shuffleBtn.classList.remove('btn--shuffling');
+      shuffleBtn.innerHTML = '<span>🔀 Barajar el Mazo Consagrado</span>';
+    }
+
+    isDeckShuffling = false;
+    if (callback) callback();
+  }, 1300);
+}
+
+function shuffleAndResetTarot(animate = false) {
+  if (animate) {
+    if (isDeckShuffling) return;
+    triggerCardShuffleAnimation(() => {
+      const copy = [...MAJOR_ARCANA_DECK];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      tarotSpreadState.shuffledDeck = copy.slice(0, 7);
+      tarotSpreadState.selectedCards = [];
+
+      renderTarotFan(true);
+      renderTarotSpreadSlots();
+      showToast('🔀 ¡Cartas mezcladas en el altar! Elige 3 arcanos');
+    });
+  } else {
+    const copy = [...MAJOR_ARCANA_DECK];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    tarotSpreadState.shuffledDeck = copy.slice(0, 7);
+    tarotSpreadState.selectedCards = [];
+
+    renderTarotFan(false);
+    renderTarotSpreadSlots();
+    document.getElementById('tarotReadingSynthesis').hidden = true;
+  }
+}
+
+function renderTarotFan(justShuffled = false) {
   const fanContainer = document.getElementById('tarotFanContainer');
   const statusPill = document.getElementById('tarotStepStatus');
   const count = tarotSpreadState.selectedCards.length;
@@ -969,12 +1109,15 @@ function renderTarotFan() {
   fanContainer.innerHTML = tarotSpreadState.shuffledDeck
     .map((card, index) => {
       const isPicked = tarotSpreadState.selectedCards.some((c) => c.roman === card.roman);
+      const shuffledClass = justShuffled ? 'just-shuffled' : '';
+      const delayStyle = justShuffled ? `style="--settle-delay: ${index * 0.05}s;"` : '';
       return `
         <button
-          class="fan-card ${isPicked ? 'picked' : ''}"
+          class="fan-card ${isPicked ? 'picked' : ''} ${shuffledClass}"
           data-fan-index="${index}"
+          ${delayStyle}
           aria-label="Carta misteriosa ${index + 1}"
-          ${isPicked || count >= 3 ? 'disabled' : ''}
+          ${isPicked || count >= 3 || isDeckShuffling ? 'disabled' : ''}
         >
           <span class="fan-card__moon">🌙</span>
           <span class="fan-card__num">AKBAL</span>
@@ -986,13 +1129,14 @@ function renderTarotFan() {
 
   fanContainer.querySelectorAll('.fan-card').forEach((btn) => {
     btn.addEventListener('click', () => {
+      if (isDeckShuffling) return;
       if (tarotSpreadState.selectedCards.length >= 3) return;
       const idx = parseInt(btn.getAttribute('data-fan-index'), 10);
       const chosen = tarotSpreadState.shuffledDeck[idx];
       if (!chosen) return;
 
       tarotSpreadState.selectedCards.push(chosen);
-      renderTarotFan();
+      renderTarotFan(false);
       renderTarotSpreadSlots();
       if (tarotSpreadState.selectedCards.length === 3) {
         renderTarotSynthesis();

@@ -1794,6 +1794,104 @@ textarea {
   color: var(--gold-light);
 }
 
+/* =========================================================
+   EFECTO VISUAL DE BARAJADO Y MEZCLA DE ARCANOS (SHUFFLE)
+   ========================================================= */
+.tarot-fan-container.shuffling {
+  pointer-events: none;
+  position: relative;
+}
+
+.tarot-fan-container.shuffling::after {
+  content: '✨ Mezclando energías y barajando los Arcanos... ✨';
+  position: absolute;
+  bottom: -2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  letter-spacing: 0.12em;
+  color: var(--gold-light);
+  white-space: nowrap;
+  animation: pulseShuffleText 0.75s ease-in-out infinite alternate;
+}
+
+@keyframes pulseShuffleText {
+  0% { opacity: 0.55; text-shadow: 0 0 4px rgba(229, 184, 75, 0.3); }
+  100% { opacity: 1; text-shadow: 0 0 16px rgba(229, 184, 75, 0.95); }
+}
+
+.fan-card.shuffling-card {
+  animation: tarotShuffleMotion 1.28s cubic-bezier(0.42, 0.08, 0.28, 0.96) forwards;
+  pointer-events: none !important;
+  will-change: transform, box-shadow;
+  border-color: var(--gold-light) !important;
+}
+
+@keyframes tarotShuffleMotion {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.85);
+  }
+  /* 1. Las cartas vuelan al centro de la mesa formando un mazo único compacto */
+  18% {
+    transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(var(--rot, 0deg)) scale(1.02);
+    box-shadow: 0 14px 30px rgba(229, 184, 75, 0.5);
+  }
+  /* 2. El mazo se corta y divide en 2 paquetes (izquierda y derecha) */
+  36% {
+    transform: translate(calc(var(--dx, 0px) + (var(--side, 1) * 72px)), calc(var(--dy, 0px) - 20px))
+               rotate(calc(var(--side, 1) * 14deg))
+               scale(1.05);
+    box-shadow: 0 18px 36px rgba(229, 184, 75, 0.65);
+  }
+  /* 3. Barajado americano / Cascada: se cruzan e intercalan en el aire */
+  54% {
+    transform: translate(calc(var(--dx, 0px) - (var(--side, 1) * 50px)), calc(var(--dy, 0px) - 8px))
+               rotate(calc(var(--side, 1) * -8deg))
+               scale(1.03);
+    box-shadow: 0 16px 32px rgba(229, 184, 75, 0.75);
+  }
+  /* 4. Segundo corte y floreo en el aire */
+  70% {
+    transform: translate(calc(var(--dx, 0px) + (var(--side, 1) * 42px)), calc(var(--dy, 0px) - 24px))
+               rotate(calc(var(--side, 1) * 10deg))
+               scale(1.04);
+  }
+  /* 5. Choque de unión en el centro con resplandor dorado místico */
+  85% {
+    transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(0deg) scale(1.08);
+    box-shadow: 0 0 40px rgba(229, 184, 75, 1), 0 0 70px rgba(212, 160, 23, 0.65);
+  }
+  /* 6. Despliegue elástico de regreso al abanico */
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.85);
+  }
+}
+
+/* Efecto de asentamiento suave al desplegarse tras barajar */
+.fan-card.just-shuffled {
+  animation: fanCardSettle 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  animation-delay: var(--settle-delay, 0s);
+}
+
+@keyframes fanCardSettle {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.88);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+#shuffleDeckBtn.btn--shuffling {
+  opacity: 0.75;
+  pointer-events: none;
+}
+
 /* 3 Posiciones de la Tirada */
 .tarot-spread-slots {
   display: grid;
