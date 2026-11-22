@@ -1669,19 +1669,30 @@ textarea {
   padding: 2.2rem;
   box-shadow: var(--shadow-mystic), var(--shadow-gold);
   margin-bottom: 3.2rem;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .tarot-setup-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1rem;
   margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .tarot-field {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .tarot-field--wide {
@@ -1693,10 +1704,16 @@ textarea {
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--gold-light);
+  white-space: normal;
+  word-break: break-word;
 }
 
 .tarot-field input,
 .tarot-field select {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   background: rgba(5, 5, 7, 0.95);
   border: 1px solid var(--border-gold);
   border-radius: 12px;
@@ -2128,7 +2145,7 @@ textarea {
   .tarot-spread-slots,
   .sessions-grid,
   .tarot-setup-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -2446,6 +2463,12 @@ textarea {
     padding: 1rem 0.85rem;
   }
 
+  .tarot-altar-box {
+    padding: 1.25rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 2.2rem;
+  }
+
   .tarot-deck-controls {
     flex-direction: column;
     align-items: stretch;
@@ -2487,6 +2510,17 @@ textarea {
   .top-banner__inner {
     justify-content: center;
     gap: 0.4rem;
+  }
+
+  .tarot-altar-box {
+    padding: 1.05rem 0.85rem;
+    border-radius: 18px;
+  }
+
+  .tarot-field input,
+  .tarot-field select {
+    padding: 0.65rem 0.8rem;
+    font-size: 0.88rem;
   }
 }
 
