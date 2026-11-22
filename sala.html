@@ -240,21 +240,8 @@
         roleBadge.textContent = role === 'veronica' ? 'CONECTADA COMO VERÓNICA' : 'CONECTADO AL ALTAR';
       }
 
-      // Parámetros de auto-join que eliminan el lobby y configuran en español
-      const flags = [
-        'config.prejoinConfig.enabled=false',
-        'config.prejoinPageEnabled=false',
-        'config.welcomePage.disabled=true',
-        'config.deeplinking.disabled=true',
-        'config.disableDeepLinking=true',
-        'config.defaultLanguage="es"',
-        'interfaceConfig.DEFAULT_LANG="es"',
-        `userInfo.displayName="${displayName}"`,
-        'config.startWithAudioMuted=false',
-        'config.startWithVideoMuted=false'
-      ].join('&');
-
-      const roomUrl = `https://fairmeeting.net/${cleanRoom}#${flags}`;
+      // VDO.Ninja Marca Blanca: 100% limpia sin logos ni donaciones
+      const roomUrl = `https://vdo.ninja/?room=${cleanRoom}&webcam&autostart&darkmode&label=${encodeURIComponent(displayName)}`;
 
       const container = document.getElementById('videoContainer');
       container.innerHTML = `

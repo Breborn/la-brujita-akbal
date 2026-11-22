@@ -1466,18 +1466,16 @@ function openEmbeddedVideoCall() {
   const rawQuerent = document.getElementById('tarotQuerentName').value.trim() || 'Consultante';
   const roomCode = 'LaBrujitaAkbal';
   
-  // Conexión directa automática: sin prejoin, sin lobby, sin pedir nombre, entra de inmediato
-  activeVideoRoomUrl = `https://fairmeeting.net/${roomCode}`;
-  const clientFlags = `#config.prejoinConfig.enabled=false&config.prejoinPageEnabled=false&config.welcomePage.disabled=true&config.deeplinking.disabled=true&config.disableDeepLinking=true&config.defaultLanguage="es"&interfaceConfig.DEFAULT_LANG="es"&userInfo.displayName="${encodeURIComponent(rawQuerent)}"&config.startWithAudioMuted=false&config.startWithVideoMuted=false`;
-  const iframeSrc = `${activeVideoRoomUrl}${clientFlags}`;
+  // Sala VDO.Ninja Marca Blanca: 100% limpia sin logos ni botones de donaciones
+  activeVideoRoomUrl = `https://vdo.ninja/?room=${roomCode}&webcam&autostart&darkmode&label=${encodeURIComponent(rawQuerent)}`;
 
   if (externalBtn) {
-    externalBtn.href = `sala.html?sala=${roomCode}&rol=consultante`;
+    externalBtn.href = activeVideoRoomUrl;
   }
 
   frameWrap.innerHTML = `
     <iframe
-      src="${iframeSrc}"
+      src="${activeVideoRoomUrl}"
       allow="camera; microphone; fullscreen; display-capture; autoplay"
       title="Sala de Videollamada de Tarot con Verónica - La Brujita Akbal"
     ></iframe>
@@ -1485,7 +1483,7 @@ function openEmbeddedVideoCall() {
 
   panel.hidden = false;
   panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  showToast('📹 Sala de Videollamada abierta en la página');
+  showToast('📹 Sala de Videollamada limpia conectada');
 }
 
 function closeEmbeddedVideoCall() {
@@ -1503,13 +1501,13 @@ function notifyVeronicaVideoRoomWhatsApp() {
   const safeName = querent.replace(/[^a-zA-Z0-9]/g, '') || 'Altar';
   const portalUrl = 'https://breborn.github.io/la-brujita-akbal/sala.html';
 
-  let msg = `📹✨ ¡Hola Verónica! Soy *${querent}* y estoy esperándote en la *Sala de Videollamada de La Brujita Akbal* para continuar con mi lectura detallada.\n\n`;
+  let msg = `📹✨ ¡Hola Verónica! Soy *${querent}* y estoy esperándote para mi lectura detallada de Tarot en vivo.\n\n`;
   msg += `🔮 *Tema:* ${topic}\n`;
   if (c1 && c2 && c3) {
-    msg += `🃏 *Mis 3 cartas reveladas:* ${c1.name} • ${c2.name} • ${c3.name}\n`;
+    msg += `🃏 *Mis 3 cartas:* ${c1.name} • ${c2.name} • ${c3.name}\n`;
   }
-  msg += `\n👉 *PINCHA AQUÍ PARA ENTRAR A LA SALA:*\n${portalUrl}\n\n`;
-  msg += `📲 *O si prefieres:* ¡Iníciame la videollamada por WhatsApp directamente aquí! ✨🌙`;
+  msg += `\n🌐 *OPCIÓN 1 (Sala Web sin marcas ni anuncios):*\n${portalUrl}\n\n`;
+  msg += `📲 *OPCIÓN 2 (WhatsApp Video):*\n¡O iníciame la videollamada por WhatsApp directamente aquí si prefieres el celular! ✨🌙`;
 
   window.open(`https://wa.me/${rawPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
 }
@@ -1610,8 +1608,8 @@ function notifyPaymentAndJoinWhatsApp() {
   if (c1 && c2 && c3) {
     msg += `🃏 *Mis 3 cartas en la mesa ritual:* ${c1.name} • ${c2.name} • ${c3.name}\n`;
   }
-  msg += `\n👉 *PINCHA AQUÍ PARA ENTRAR A LA SALA:*\n${portalRoomUrl}\n\n`;
-  msg += `📲 *O si estás en tu celular y prefieres:* ¡Iníciame la videollamada por WhatsApp directamente aquí! ✨🌙`;
+  msg += `\n🌐 *OPCIÓN 1 (Sala Web limpia en vivo):*\n${portalRoomUrl}\n\n`;
+  msg += `📲 *OPCIÓN 2 (WhatsApp Video Directo):*\n¡O si estás en tu celular, iníciame la videollamada por WhatsApp directamente aquí! ✨🌙`;
 
   // 1. Abrir WhatsApp inmediatamente en el evento de click (evita bloqueo de popups)
   window.open(`https://wa.me/${rawPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
